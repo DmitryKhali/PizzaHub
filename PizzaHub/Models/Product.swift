@@ -1,0 +1,15 @@
+//
+//  Product.swift
+//  SampleApp
+//
+//  Created by Dmitry Khalitov on 11.10.2025.
+//
+
+import Foundation
+
+struct Product: Codable {
+    var name: String
+    var detail: String
+    var price: Int
+    var image: String
+}
