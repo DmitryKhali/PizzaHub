@@ -1,6 +1,6 @@
 //
 //  CategoriesContainerHeader.swift
-//  SampleApp
+//  PizzaHub
 //
 //  Created by Dmitry Khalitov on 31.10.2025.
 //

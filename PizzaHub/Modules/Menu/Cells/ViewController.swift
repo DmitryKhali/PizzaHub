@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  SampleApp
+//  PizzaHub
 //
 //  Created by Dmitry Khalitov on 12.10.2025.
 //

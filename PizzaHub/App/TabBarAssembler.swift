@@ -1,6 +1,6 @@
 //
 //  TabBarAssembler.swift
-//  SampleApp
+//  PizzaHub
 //
 //  Created by Dmitry Khalitov on 28.12.2025.
 //

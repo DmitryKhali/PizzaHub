@@ -1,6 +1,6 @@
 //
 //  ProductImageContainerCell.swift
-//  SampleApp
+//  PizzaHub
 //
 //  Created by Dmitry Khalitov on 14.11.2025.
 //

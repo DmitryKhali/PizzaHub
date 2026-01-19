@@ -1,6 +1,6 @@
 //
 //  CartProductCell.swift
-//  SampleApp
+//  PizzaHub
 //
 //  Created by Dmitry Khalitov on 06.12.2025.
 //

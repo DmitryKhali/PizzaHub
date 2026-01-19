@@ -1,6 +1,6 @@
 //
 //  AddressSuggestionService.swift
-//  SampleApp
+//  PizzaHub
 //
 //  Created by Dmitry Khalitov on 12.01.2026.
 //

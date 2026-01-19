@@ -1,6 +1,6 @@
 //
 //  Story.swift
-//  SampleApp
+//  PizzaHub
 //
 //  Created by Dmitry Khalitov on 02.11.2025.
 //

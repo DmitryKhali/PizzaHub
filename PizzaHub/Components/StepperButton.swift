@@ -1,6 +1,6 @@
 //
 //  StepperButton.swift
-//  SampleApp
+//  PizzaHub
 //
 //  Created by Dmitry Khalitov on 17.12.2025.
 //

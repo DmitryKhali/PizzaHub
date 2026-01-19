@@ -97,7 +97,7 @@
 		52A258D72EDC46C200241E75 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		52ACE4192F156CDE00B28A07 /* AddressSuggestionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSuggestionResponse.swift; sourceTree = "<group>"; };
 		52ACE41B2F15707E00B28A07 /* AddressSuggestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSuggestionService.swift; sourceTree = "<group>"; };
-		52C753A92E8D7FC20085CD39 /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		52C753A92E8D7FC20085CD39 /* PizzaHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PizzaHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52C8C1EC2EC895D1000B71F0 /* ProductOptionsContainerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductOptionsContainerCell.swift; sourceTree = "<group>"; };
 		52C8C1EE2EC8DD2E000B71F0 /* AdditionalIngredientsContainerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalIngredientsContainerCell.swift; sourceTree = "<group>"; };
 		52C8C1F02EC8E1C0000B71F0 /* AdditionalIngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalIngredientCell.swift; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
-		52444A142EB7C34100E3AD22 /* SampleApp */ = {
+		52444A142EB7C34100E3AD22 /* PizzaHub */ = {
 			isa = PBXGroup;
 			children = (
 				52444A152EBB6E6F00E3AD22 /* App */,
@@ -158,7 +158,7 @@
 				52444A162EBB6E7400E3AD22 /* Extensions */,
 				52444A1C2EBB979100E3AD22 /* Resources */,
 			);
-			path = SampleApp;
+			path = PizzaHub;
 			sourceTree = "<group>";
 		};
 		52444A152EBB6E6F00E3AD22 /* App */ = {
@@ -298,7 +298,7 @@
 		52C753A02E8D7FC20085CD39 = {
 			isa = PBXGroup;
 			children = (
-				52444A142EB7C34100E3AD22 /* SampleApp */,
+				52444A142EB7C34100E3AD22 /* PizzaHub */,
 				52C753AA2E8D7FC20085CD39 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -306,7 +306,7 @@
 		52C753AA2E8D7FC20085CD39 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				52C753A92E8D7FC20085CD39 /* SampleApp.app */,
+				52C753A92E8D7FC20085CD39 /* PizzaHub.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -331,9 +331,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		52C753A82E8D7FC20085CD39 /* SampleApp */ = {
+		52C753A82E8D7FC20085CD39 /* PizzaHub */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 52C753BC2E8D7FC50085CD39 /* Build configuration list for PBXNativeTarget "SampleApp" */;
+			buildConfigurationList = 52C753BC2E8D7FC50085CD39 /* Build configuration list for PBXNativeTarget "PizzaHub" */;
 			buildPhases = (
 				52C753A52E8D7FC20085CD39 /* Sources */,
 				52C753A62E8D7FC20085CD39 /* Frameworks */,
@@ -343,12 +343,12 @@
 			);
 			dependencies = (
 			);
-			name = SampleApp;
+			name = PizzaHub;
 			packageProductDependencies = (
 				52DBE5D32E8D8C6F002EA385 /* SnapKit */,
 			);
 			productName = SampleApp;
-			productReference = 52C753A92E8D7FC20085CD39 /* SampleApp.app */;
+			productReference = 52C753A92E8D7FC20085CD39 /* PizzaHub.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -366,7 +366,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 52C753A42E8D7FC20085CD39 /* Build configuration list for PBXProject "SampleApp" */;
+			buildConfigurationList = 52C753A42E8D7FC20085CD39 /* Build configuration list for PBXProject "PizzaHub" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -383,7 +383,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				52C753A82E8D7FC20085CD39 /* SampleApp */,
+				52C753A82E8D7FC20085CD39 /* PizzaHub */,
 			);
 		};
 /* End PBXProject section */
@@ -484,7 +484,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D55C98UU6M;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SampleApp/Resources/Info.plist;
+				INFOPLIST_FILE = PizzaHub/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -495,7 +495,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = sequoia.SampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = app.sequoia.pizzahub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -516,7 +516,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D55C98UU6M;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SampleApp/Resources/Info.plist;
+				INFOPLIST_FILE = PizzaHub/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -527,7 +527,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = sequoia.SampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = app.sequoia.pizzahub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -663,7 +663,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		52C753A42E8D7FC20085CD39 /* Build configuration list for PBXProject "SampleApp" */ = {
+		52C753A42E8D7FC20085CD39 /* Build configuration list for PBXProject "PizzaHub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				52C753BF2E8D7FC50085CD39 /* Debug */,
@@ -672,7 +672,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		52C753BC2E8D7FC50085CD39 /* Build configuration list for PBXNativeTarget "SampleApp" */ = {
+		52C753BC2E8D7FC50085CD39 /* Build configuration list for PBXNativeTarget "PizzaHub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				52C753BD2E8D7FC50085CD39 /* Debug */,

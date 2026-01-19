@@ -1,6 +1,6 @@
 //
 //  FindAddressCell.swift
-//  SampleApp
+//  PizzaHub
 //
 //  Created by Dmitry Khalitov on 10.01.2026.
 //

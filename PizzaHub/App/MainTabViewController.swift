@@ -1,6 +1,6 @@
 //
 //  MainTabViewController.swift
-//  SampleApp
+//  PizzaHub
 //
 //  Created by Dmitry Khalitov on 21.12.2025.
 //

@@ -1,6 +1,6 @@
 //
 //  MenuProvider.swift
-//  SampleApp
+//  PizzaHub
 //
 //  Created by Dmitry Khalitov on 18.01.2026.
 //

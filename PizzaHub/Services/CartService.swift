@@ -1,6 +1,6 @@
 //
 //  CartService.swift
-//  SampleApp
+//  PizzaHub
 //
 //  Created by Dmitry Khalitov on 16.01.2026.
 //

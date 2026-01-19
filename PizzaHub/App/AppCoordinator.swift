@@ -1,6 +1,6 @@
 //
 //  AppCoordinator.swift
-//  SampleApp
+//  PizzaHub
 //
 //  Created by Dmitry Khalitov on 17.01.2026.
 //

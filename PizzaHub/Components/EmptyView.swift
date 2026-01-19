@@ -1,6 +1,6 @@
 //
 //  EmptyView.swift
-//  SampleApp
+//  PizzaHub
 //
 //  Created by Dmitry Khalitov on 08.11.2025.
 //
