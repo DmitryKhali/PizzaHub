@@ -1,32 +1,19 @@
 //
-//  MenuProvider.swift
+//  MenuProviderPresenter.swift
 //  PizzaHub
 //
-//  Created by Dmitry Khalitov on 18.01.2026.
+//  Created by Dmitry Khalitov on 19.01.2026.
 //
 
 import Foundation
 
-struct MenuModel {
-    let stories: [Story]
-    let banners: [Banner]
-    let categories: [Category]
-    let products: [Product]
-}
-
-
-final class MenuProvider {
+final class MenuProviderPresenter {
     private let storiesService: IStoriesService
     private let bannersService: IBannersService
     private let categoriesService: ICategoriesService
     private let productsService: IProductsService
     private let productsArchiver: ICartService
     
-    var stories: [Story] = []
-    var banners: [Banner] = []
-    var categories: [Category] = []
-    var products: [Product] = []
-
     init(
         storiesService: IStoriesService,
         bannersService: IBannersService,
@@ -44,17 +31,22 @@ final class MenuProvider {
 }
 
 // MARK: - Public
-extension MenuProvider {
+extension MenuProviderPresenter {
     func loadData(completion: @escaping (Result<MenuModel, Error>) -> () ) {
         let group = DispatchGroup()
         var errors: [Error] = []
+        
+        var fetchedStories: [Story]?
+        var fetchedBanners: [Banner]?
+        var fetchedCategories: [Category]?
+        var fetchedProducts: [Product]?
         
         group.enter()
         storiesService.fetchStories { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let stories):
-                self.stories = stories
+                fetchedStories = stories
             case .failure(let error):
                 errors.append(error)
             }
@@ -66,7 +58,7 @@ extension MenuProvider {
             guard let self else { return }
             switch result {
             case .success(let banners):
-                self.banners = banners
+                fetchedBanners = banners
             case .failure(let error):
                 errors.append(error)
             }
@@ -78,7 +70,7 @@ extension MenuProvider {
             guard let self else { return }
             switch result {
             case .success(let categories):
-                self.categories = categories
+                fetchedCategories = categories
             case .failure(let error):
                 errors.append(error)
             }
@@ -90,7 +82,7 @@ extension MenuProvider {
             guard let self else { return }
             switch result {
             case .success(let products):
-                self.products = products
+                fetchedProducts = products
             case .failure(let error):
                 errors.append(error)
             }
@@ -105,22 +97,21 @@ extension MenuProvider {
                 return
             }
             
-//            guard let stories = fetchedStories,
-//                  let banners = fetchedBanners,
-//                  let categories = fetchedCategories,
-//                  let products = fetchedProducts else {
-//                completion(.failure(NSError(
-//                    domain: "MenuProvider",
-//                    code: -1,
-//                    userInfo: [NSLocalizedDescriptionKey: "Не все данные загружены" ]))
-//                )
-//                return
-//            }
+            guard let stories = fetchedStories,
+                  let banners = fetchedBanners,
+                  let categories = fetchedCategories,
+                  let products = fetchedProducts else {
+                completion(.failure(NSError(
+                    domain: "MenuProvider",
+                    code: -1,
+                    userInfo: [NSLocalizedDescriptionKey: "Не все данные загружены" ]))
+                )
+                return
+            }
             
             let menuModel = MenuModel(stories: stories, banners: banners, categories: categories, products: products)
             
             completion(.success(menuModel))
-            
         }
         
     }

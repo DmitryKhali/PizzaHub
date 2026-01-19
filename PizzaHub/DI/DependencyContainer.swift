@@ -18,6 +18,9 @@ protocol DIContainer: AnyObject {
     var screenFactory: ScreenFactory { get }
     
     var menuProvider: MenuProvider { get }
+    
+    // Presenter realization sample
+    var menuProviderPresenter: MenuProviderPresenter { get }
 }
 
 final class DependencyContainer: DIContainer {
@@ -55,6 +58,10 @@ final class DependencyContainer: DIContainer {
     var menuProvider: MenuProvider {
         MenuProvider(storiesService: storiesService, bannersService: bannersService, categoriesService: categoriesService, productsService: productsService, productsArchiver: productsArchiver)
     }
+    
+    var menuProviderPresenter: MenuProviderPresenter {
+        MenuProviderPresenter(storiesService: storiesService, bannersService: bannersService, categoriesService: categoriesService, productsService: productsService, productsArchiver: productsArchiver)
+    }
 }
 
 final class ScreenFactory { // TODO: закрывать интерфейсом?
@@ -77,6 +84,15 @@ final class ScreenFactory { // TODO: закрывать интерфейсом?
     
     func makeMenuScreen() -> MainScreenViewController {
         MainScreenViewController(provider: di.menuProvider)
+    }
+    
+    func makeMenuScreenWithPresenter() -> MainScreenViewControllerPresenter {
+        let presenter = MenuPresenter(provider: di.menuProviderPresenter)
+        let vewController = MainScreenViewControllerPresenter(presenter: presenter)
+        
+        presenter.viewController = vewController
+        
+        return vewController
     }
     
     func makeCartScreen() -> CartViewController {
