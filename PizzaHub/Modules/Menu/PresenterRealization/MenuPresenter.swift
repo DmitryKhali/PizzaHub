@@ -18,7 +18,7 @@ protocol IMenuPresenter {
 
 final class MenuPresenter {
     
-    weak var viewController: IMainScreenViewControllerPresenter?
+    weak var viewController: IMenuViewControllerPresenter?
     private let provider: MenuProviderPresenter
     
     var stories: [Story] = []

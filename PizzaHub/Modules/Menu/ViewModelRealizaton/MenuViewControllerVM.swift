@@ -10,10 +10,10 @@ import SnapKit
 import Combine
 
 
-final class MainScreenViewControllerVM: UIViewController {
+final class MenuViewControllerVM: UIViewController {
         
     // MARK: Properties
-    private let viewModel: MainScreenViewModel
+    private let viewModel: MenuViewModel
     private var cancellables = Set<AnyCancellable>()
     
     private var stories: [Story] = []
@@ -42,7 +42,7 @@ final class MainScreenViewControllerVM: UIViewController {
     }()
     
     // MARK: Init
-    init(viewModel: MainScreenViewModel) {
+    init(viewModel: MenuViewModel) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
@@ -64,11 +64,11 @@ final class MainScreenViewControllerVM: UIViewController {
 }
 
 //MARK: - TableDelegate
-extension MainScreenViewControllerVM: UITableViewDelegate {
+extension MenuViewControllerVM: UITableViewDelegate {
     
 }
 
-extension MainScreenViewControllerVM: UITableViewDataSource {
+extension MenuViewControllerVM: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         MenuSection.allCases.count
@@ -124,7 +124,7 @@ extension MainScreenViewControllerVM: UITableViewDataSource {
 }
 
 //MARK: - Layout
-extension MainScreenViewControllerVM {
+extension MenuViewControllerVM {
     //Для установки UI элементов на корневую вью контроллера
     private func setupViews() {
         view.addSubview(tableView)
@@ -139,7 +139,7 @@ extension MainScreenViewControllerVM {
 }
 
 //MARK: - Private methods
-extension MainScreenViewControllerVM {
+extension MenuViewControllerVM {
     func bindViewModel() {
         viewModel.$stories
             .receive(on: DispatchQueue.main)

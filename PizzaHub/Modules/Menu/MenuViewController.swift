@@ -1,5 +1,5 @@
 //
-//  MainScreenViewController.swift
+//  MenuViewController.swift
 //  PizzaHub
 //
 //  Created by Dmitry Khalitov on 01.10.2025.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class MainScreenViewController: UIViewController {
+final class MenuViewController: UIViewController {
     
 //    private let storiesService: IStoriesService
 //    private let bannersService: IBannersService
@@ -85,7 +85,7 @@ final class MainScreenViewController: UIViewController {
 }
 
 //MARK: - Business Logic
-private extension MainScreenViewController {
+private extension MenuViewController {
     
     private func loadData() {
         provider.loadData { result in
@@ -149,7 +149,7 @@ private extension MainScreenViewController {
 }
 
 //MARK: - TableDelegate
-extension MainScreenViewController: UITableViewDelegate {
+extension MenuViewController: UITableViewDelegate {
     
 }
 
@@ -160,7 +160,7 @@ enum MenuSection: Int, CaseIterable {
     case products
 }
 
-extension MainScreenViewController: UITableViewDataSource {
+extension MenuViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         MenuSection.allCases.count
@@ -216,7 +216,7 @@ extension MainScreenViewController: UITableViewDataSource {
 }
 
 //MARK: - Layout
-extension MainScreenViewController {
+extension MenuViewController {
     //Для установки UI элементов на корневую вью контроллера
     private func setupViews() {
         view.addSubview(tableView)

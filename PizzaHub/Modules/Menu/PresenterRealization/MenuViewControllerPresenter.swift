@@ -1,5 +1,5 @@
 //
-//  MainScreenViewControllerPresenter.swift
+//  MenuViewControllerPresenter.swift
 //  PizzaHub
 //
 //  Created by Dmitry Khalitov on 01.10.2025.
@@ -8,11 +8,11 @@
 import UIKit
 import SnapKit
 
-protocol IMainScreenViewControllerPresenter: AnyObject {
+protocol IMenuViewControllerPresenter: AnyObject {
     func updateView()
 }
 
-final class MainScreenViewControllerPresenter: UIViewController {
+final class MenuViewControllerPresenter: UIViewController {
         
     private let presenter: IMenuPresenter
     
@@ -62,11 +62,11 @@ final class MainScreenViewControllerPresenter: UIViewController {
 }
 
 //MARK: - TableDelegate
-extension MainScreenViewControllerPresenter: UITableViewDelegate {
+extension MenuViewControllerPresenter: UITableViewDelegate {
     
 }
 
-extension MainScreenViewControllerPresenter: UITableViewDataSource {
+extension MenuViewControllerPresenter: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         MenuSection.allCases.count
@@ -122,7 +122,7 @@ extension MainScreenViewControllerPresenter: UITableViewDataSource {
 }
 
 //MARK: - Layout
-extension MainScreenViewControllerPresenter {
+extension MenuViewControllerPresenter {
     //Для установки UI элементов на корневую вью контроллера
     private func setupViews() {
         view.addSubview(tableView)
@@ -137,7 +137,7 @@ extension MainScreenViewControllerPresenter {
 }
 
 //MARK: - Public methods
-extension MainScreenViewControllerPresenter: IMainScreenViewControllerPresenter {
+extension MenuViewControllerPresenter: IMenuViewControllerPresenter {
     func updateView() {
         tableView.reloadData()
     }

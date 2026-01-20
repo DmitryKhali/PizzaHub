@@ -72,8 +72,8 @@ final class ScreenFactory { // TODO: закрывать интерфейсом?
         self.di = di
     }
     
-//    func makeMenuScreen() -> MainScreenViewController {
-//        MainScreenViewController(
+//    func makeMenuScreen() -> MenuViewController {
+//        MenuViewController(
 //            storiesService: di.storiesService,
 //            bannersService: di.bannersService,
 //            categoriesService: di.categoriesService,
@@ -82,22 +82,22 @@ final class ScreenFactory { // TODO: закрывать интерфейсом?
 //        )
 //    }
     
-    func makeMenuScreen() -> MainScreenViewController {
-        MainScreenViewController(provider: di.menuProvider)
+    func makeMenuScreen() -> MenuViewController {
+        MenuViewController(provider: di.menuProvider)
     }
     
-    func makeMenuScreenWithPresenter() -> MainScreenViewControllerPresenter {
+    func makeMenuScreenWithPresenter() -> MenuViewControllerPresenter {
         let presenter = MenuPresenter(provider: di.menuProviderPresenter)
-        let vewController = MainScreenViewControllerPresenter(presenter: presenter)
+        let vewController = MenuViewControllerPresenter(presenter: presenter)
         
         presenter.viewController = vewController
         
         return vewController
     }
     
-    func makeMenuScreenMVVM() -> MainScreenViewControllerVM {
-        let viewModel = MainScreenViewModel(provider: di.menuProvider)
-        let viewController = MainScreenViewControllerVM(viewModel: viewModel)
+    func makeMenuScreenMVVM() -> MenuViewControllerVM {
+        let viewModel = MenuViewModel(provider: di.menuProvider)
+        let viewController = MenuViewControllerVM(viewModel: viewModel)
         
         return viewController
     }

@@ -1,5 +1,5 @@
 //
-//  MainScreenViewModel.swift
+//  MenuViewModel.swift
 //  PizzaHub
 //
 //  Created by Dmitry Khalitov on 19.01.2026.
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class MainScreenViewModel {
+final class MenuViewModel {
     // MARK: Public Properties
     @Published var stories: [Story] = []
     @Published var banners: [Banner] = []
@@ -25,13 +25,13 @@ final class MainScreenViewModel {
 }
 
 // MARK: Public methods
-extension MainScreenViewModel {
+extension MenuViewModel {
     func viewDidLoad() {
         loadData()
     }
 }
 
-extension MainScreenViewModel {
+extension MenuViewModel {
     private func loadData() {
         
         provider.loadData { [weak self] result in
