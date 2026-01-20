@@ -37,6 +37,8 @@
 		529898472F1E397500D460E1 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529898462F1E397500D460E1 /* MenuPresenter.swift */; };
 		529898492F1E3AE300D460E1 /* MainScreenViewControllerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529898482F1E3AE300D460E1 /* MainScreenViewControllerPresenter.swift */; };
 		5298984B2F1E40B600D460E1 /* MenuProviderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5298984A2F1E40B600D460E1 /* MenuProviderPresenter.swift */; };
+		5298984D2F1E7A2100D460E1 /* MainScreenViewControllerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5298984C2F1E7A2000D460E1 /* MainScreenViewControllerVM.swift */; };
+		529898532F1E7AE200D460E1 /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529898522F1E7AE200D460E1 /* MainScreenViewModel.swift */; };
 		529F4B532EBE62D50060A377 /* StoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529F4B522EBE62D50060A377 /* StoriesService.swift */; };
 		529F4B572EBE66640060A377 /* StoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529F4B562EBE66640060A377 /* StoryCollectionCell.swift */; };
 		529F4B592EBE67A10060A377 /* BannerCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529F4B582EBE67A10060A377 /* BannerCollectionCell.swift */; };
@@ -92,6 +94,8 @@
 		529898462F1E397500D460E1 /* MenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
 		529898482F1E3AE300D460E1 /* MainScreenViewControllerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewControllerPresenter.swift; sourceTree = "<group>"; };
 		5298984A2F1E40B600D460E1 /* MenuProviderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuProviderPresenter.swift; sourceTree = "<group>"; };
+		5298984C2F1E7A2000D460E1 /* MainScreenViewControllerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewControllerVM.swift; sourceTree = "<group>"; };
+		529898522F1E7AE200D460E1 /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
 		529F4B522EBE62D50060A377 /* StoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesService.swift; sourceTree = "<group>"; };
 		529F4B562EBE66640060A377 /* StoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCollectionCell.swift; sourceTree = "<group>"; };
 		529F4B582EBE67A10060A377 /* BannerCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionCell.swift; sourceTree = "<group>"; };
@@ -258,7 +262,6 @@
 		52444A1D2EBB97E300E3AD22 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				529898452F1E389C00D460E1 /* UseCaseRealization */,
 				529898442F1E389300D460E1 /* ViewModelRealizaton */,
 				529898432F1E388300D460E1 /* PresenterRealization */,
 				52444A1E2EBB97F000E3AD22 /* Cells */,
@@ -317,15 +320,10 @@
 		529898442F1E389300D460E1 /* ViewModelRealizaton */ = {
 			isa = PBXGroup;
 			children = (
+				529898522F1E7AE200D460E1 /* MainScreenViewModel.swift */,
+				5298984C2F1E7A2000D460E1 /* MainScreenViewControllerVM.swift */,
 			);
 			path = ViewModelRealizaton;
-			sourceTree = "<group>";
-		};
-		529898452F1E389C00D460E1 /* UseCaseRealization */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UseCaseRealization;
 			sourceTree = "<group>";
 		};
 		52C753A02E8D7FC20085CD39 = {
@@ -442,6 +440,7 @@
 				524449F22EB60FF600E3AD22 /* AppDelegate.swift in Sources */,
 				524449F32EB60FF600E3AD22 /* SceneDelegate.swift in Sources */,
 				52ACE41C2F15707E00B28A07 /* AddressSuggestionService.swift in Sources */,
+				529898532F1E7AE200D460E1 /* MainScreenViewModel.swift in Sources */,
 				52D2608C2F1A8BFC00E3BE08 /* CartService.swift in Sources */,
 				52A258D82EDC46C200241E75 /* Ingredient.swift in Sources */,
 				52D2608E2F1BFBEF00E3BE08 /* AppCoordinator.swift in Sources */,
@@ -457,6 +456,7 @@
 				52A258D62EDC465F00241E75 /* IngredientsService.swift in Sources */,
 				524449F62EB60FF600E3AD22 /* Banner.swift in Sources */,
 				524449F72EB60FF600E3AD22 /* Product.swift in Sources */,
+				5298984D2F1E7A2100D460E1 /* MainScreenViewControllerVM.swift in Sources */,
 				52284F472EE4C06F00008C26 /* CartProductCell.swift in Sources */,
 				52D260902F1CE0BD00E3BE08 /* MenuProvider.swift in Sources */,
 				52E67FA42F127EF9005023D0 /* FindAddressCell.swift in Sources */,

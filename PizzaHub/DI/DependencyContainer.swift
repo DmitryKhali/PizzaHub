@@ -95,6 +95,13 @@ final class ScreenFactory { // TODO: закрывать интерфейсом?
         return vewController
     }
     
+    func makeMenuScreenMVVM() -> MainScreenViewControllerVM {
+        let viewModel = MainScreenViewModel(provider: di.menuProvider)
+        let viewController = MainScreenViewControllerVM(viewModel: viewModel)
+        
+        return viewController
+    }
+    
     func makeCartScreen() -> CartViewController {
         CartViewController()
     }
