@@ -14,7 +14,6 @@ struct MenuModel {
     let products: [Product]
 }
 
-
 final class MenuProvider {
     private let storiesService: IStoriesService
     private let bannersService: IBannersService
@@ -104,24 +103,11 @@ extension MenuProvider {
                 completion(.failure(firstError))
                 return
             }
-            
-//            guard let stories = fetchedStories,
-//                  let banners = fetchedBanners,
-//                  let categories = fetchedCategories,
-//                  let products = fetchedProducts else {
-//                completion(.failure(NSError(
-//                    domain: "MenuProvider",
-//                    code: -1,
-//                    userInfo: [NSLocalizedDescriptionKey: "Не все данные загружены" ]))
-//                )
-//                return
-//            }
-            
+                        
             let menuModel = MenuModel(stories: stories, banners: banners, categories: categories, products: products)
             
             completion(.success(menuModel))
             
         }
-        
     }
 }

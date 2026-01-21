@@ -10,6 +10,7 @@ import SnapKit
 
 final class MenuViewController: UIViewController {
     
+    // код до внедрения Provider
 //    private let storiesService: IStoriesService
 //    private let bannersService: IBannersService
 //    private let categoriesService: ICategoriesService
@@ -33,6 +34,7 @@ final class MenuViewController: UIViewController {
 //    }
     
     private let provider: MenuProvider
+    private var state: MenuViewState = .initial
     
     init(provider: MenuProvider) {
         self.provider = provider
@@ -44,6 +46,7 @@ final class MenuViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
         
+    // код до внедрения Provider
 //    private var stories: [Story] = []
 //    private var banners: [Banner] = []
 //    private var categories: [Category] = []
@@ -70,11 +73,29 @@ final class MenuViewController: UIViewController {
         return tableView
     }()
     
+    private let loadingView: UIActivityIndicatorView = {
+        var indicator = UIActivityIndicatorView(style: .large)
+        indicator.hidesWhenStopped = true
+        indicator.color = .gray
+        return indicator
+    }()
+    
+    private let errorLabel: UILabel = {
+        var label = UILabel()
+        label.text = "Ошибка загрузки"
+        label.textAlignment = .center
+        label.textColor = .systemRed
+        label.numberOfLines = 0
+        
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
         
+        // код до внедрения Provider
 //        fetchStories()
 //        fetchBanners()
 //        fetchCategories()
@@ -86,18 +107,39 @@ final class MenuViewController: UIViewController {
 
 //MARK: - Business Logic
 private extension MenuViewController {
+    private func render(_ state: MenuViewState) {
+        switch state {
+        case .initial, .loading:
+            loadingView.startAnimating()
+            errorLabel.isHidden = true
+            tableView.isHidden = true
+        case .loaded:
+            loadingView.stopAnimating()
+            errorLabel.isHidden = true
+            tableView.isHidden = false
+        case .error:
+            loadingView.stopAnimating()
+            errorLabel.isHidden = false
+            tableView.isHidden = true
+        }
+    }
     
     private func loadData() {
+        render(.loading)
+        
         provider.loadData { result in
             switch result {
             case .success(let success):
+                self.render(.loaded)
                 self.tableView.reloadData()
             case .failure(let failure):
+                self.render(.error)
                 print(failure.localizedDescription)
             }
         }
     }
     
+    // код до внедрения Provider
 //    func fetchStories() {
 //        storiesService.fetchStories { [weak self] result in
 //            guard let self else { return }
@@ -220,11 +262,19 @@ extension MenuViewController {
     //Для установки UI элементов на корневую вью контроллера
     private func setupViews() {
         view.addSubview(tableView)
+        view.addSubview(loadingView)
+        view.addSubview(errorLabel)
     }
     
     //Для установки констрэйнтов (креплений) для позиционирования элементов на вью
     private func setupConstraints() {
         tableView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        loadingView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        errorLabel.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }

@@ -32,9 +32,9 @@ enum MainTab: Int, CaseIterable { // источник истины для таб
         
         switch self {
         case .menu:
-//            vc = di.screenFactory.makeMenuScreen()
+            vc = di.screenFactory.makeMenuScreen()
 //            vc = di.screenFactory.makeMenuScreenWithPresenter()
-            vc = di.screenFactory.makeMenuScreenMVVM()
+//            vc = di.screenFactory.makeMenuScreenMVVM()
         case .cart:
             vc = di.screenFactory.makeCartScreen()
         }
