@@ -34,7 +34,11 @@ final class MenuViewController: UIViewController {
 //    }
     
     private let provider: MenuProvider
-    private var state: MenuViewState = .initial
+    private var state: MenuViewState = .initial {
+        didSet {
+            render(state)
+        }
+    }
     
     init(provider: MenuProvider) {
         self.provider = provider
@@ -125,15 +129,15 @@ private extension MenuViewController {
     }
     
     private func loadData() {
-        render(.loading)
+        state = .loading
         
         provider.loadData { result in
             switch result {
             case .success(let success):
-                self.render(.loaded)
+                self.state = .loaded
                 self.tableView.reloadData()
             case .failure(let failure):
-                self.render(.error)
+                self.state = .error
                 print(failure.localizedDescription)
             }
         }
