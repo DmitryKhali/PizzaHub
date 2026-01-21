@@ -8,6 +8,12 @@
 import UIKit
 import SnapKit
 
+enum MenuSection: Int, CaseIterable {
+    case stories
+    case banners
+    case products
+}
+
 final class MenuViewController: UIViewController {
     
     // код до внедрения Provider
@@ -84,14 +90,13 @@ final class MenuViewController: UIViewController {
         return indicator
     }()
     
-    private let errorLabel: UILabel = {
-        var label = UILabel()
-        label.text = "Ошибка загрузки"
-        label.textAlignment = .center
-        label.textColor = .systemRed
-        label.numberOfLines = 0
+    private lazy var errorView: ErrorView = {
+        var errorView = ErrorView()
+        errorView.onRetryAction = { [weak self] in
+            self?.loadData()
+        }
         
-        return label
+        return errorView
     }()
     
     override func viewDidLoad() {
@@ -110,24 +115,7 @@ final class MenuViewController: UIViewController {
 }
 
 //MARK: - Business Logic
-private extension MenuViewController {
-    private func render(_ state: MenuViewState) {
-        switch state {
-        case .initial, .loading:
-            loadingView.startAnimating()
-            errorLabel.isHidden = true
-            tableView.isHidden = true
-        case .loaded:
-            loadingView.stopAnimating()
-            errorLabel.isHidden = true
-            tableView.isHidden = false
-        case .error:
-            loadingView.stopAnimating()
-            errorLabel.isHidden = false
-            tableView.isHidden = true
-        }
-    }
-    
+extension MenuViewController {
     private func loadData() {
         state = .loading
         
@@ -191,7 +179,26 @@ private extension MenuViewController {
 //            }
 //        }
 //    }
-    
+}
+
+// MARK: - UI state
+extension MenuViewController {
+    private func render(_ state: MenuViewState) {
+        switch state {
+        case .initial, .loading:
+            loadingView.startAnimating()
+            errorView.isHidden = true
+            tableView.isHidden = true
+        case .loaded:
+            loadingView.stopAnimating()
+            errorView.isHidden = true
+            tableView.isHidden = false
+        case .error:
+            loadingView.stopAnimating()
+            errorView.isHidden = false
+            tableView.isHidden = true
+        }
+    }
 }
 
 //MARK: - TableDelegate
@@ -200,12 +207,6 @@ extension MenuViewController: UITableViewDelegate {
 }
 
 //MARK: - TableDataSource
-enum MenuSection: Int, CaseIterable {
-    case stories
-    case banners
-    case products
-}
-
 extension MenuViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -267,7 +268,7 @@ extension MenuViewController {
     private func setupViews() {
         view.addSubview(tableView)
         view.addSubview(loadingView)
-        view.addSubview(errorLabel)
+        view.addSubview(errorView)
     }
     
     //Для установки констрэйнтов (креплений) для позиционирования элементов на вью
@@ -278,7 +279,7 @@ extension MenuViewController {
         loadingView.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
-        errorLabel.snp.makeConstraints { make in
+        errorView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
