@@ -40,14 +40,17 @@ final class MenuViewController: UIViewController {
 //    }
     
     private let provider: MenuProvider
+    private let di: DIContainer
+    
     private var state: MenuViewState = .initial {
         didSet {
             render(state)
         }
     }
     
-    init(provider: MenuProvider) {
+    init(provider: MenuProvider, di: DIContainer) {
         self.provider = provider
+        self.di = di
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -201,12 +204,11 @@ extension MenuViewController {
     }
 }
 
-//MARK: - TableDelegate
+//MARK: - Table Delegate
 extension MenuViewController: UITableViewDelegate {
     
 }
 
-//MARK: - TableDataSource
 extension MenuViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -260,6 +262,15 @@ extension MenuViewController: UITableViewDataSource {
             return EmptyView()
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let menuSection = MenuSection(rawValue: indexPath.section), menuSection == .products else { return }
+        
+        let product = provider.products[indexPath.row]
+        let vc = di.screenFactory.makeProductDetailsScreen(product: product)
+        present(vc, animated: true)
+    }
+    
 }
 
 //MARK: - Layout

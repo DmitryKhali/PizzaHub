@@ -82,10 +82,12 @@ final class ScreenFactory { // TODO: закрывать интерфейсом?
 //        )
 //    }
     
+    // MVC sample
     func makeMenuScreen() -> MenuViewController {
-        MenuViewController(provider: di.menuProvider)
+        MenuViewController(provider: di.menuProvider, di: di)
     }
     
+    // MVP sample
     func makeMenuScreenWithPresenter() -> MenuViewControllerPresenter {
         let presenter = MenuPresenter(provider: di.menuProviderPresenter)
         let vewController = MenuViewControllerPresenter(presenter: presenter)
@@ -95,6 +97,7 @@ final class ScreenFactory { // TODO: закрывать интерфейсом?
         return vewController
     }
     
+    // MVVM sample
     func makeMenuScreenMVVM() -> MenuViewControllerVM {
         let viewModel = MenuViewModel(provider: di.menuProvider)
         let viewController = MenuViewControllerVM(viewModel: viewModel)
@@ -110,7 +113,7 @@ final class ScreenFactory { // TODO: закрывать интерфейсом?
         FindAddressViewController(addressSuggestionService: di.addressSuggestionService)
     }
     
-    func makeProductDetailsScreen() -> ProductDetailsViewController {
-        ProductDetailsViewController()
+    func makeProductDetailsScreen(product: Product) -> ProductDetailsViewController {
+        ProductDetailsViewController(product: product)
     }
 }

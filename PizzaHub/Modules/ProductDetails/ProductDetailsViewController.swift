@@ -11,9 +11,12 @@ import SnapKit
 final class ProductDetailsViewController: UIViewController {
     
     private let ingredientsService: IIngredientsService
+    private let product: Product
     
-    init(ingredientsService: IIngredientsService = IngredientsService()) {
+    init(product: Product, ingredientsService: IIngredientsService = IngredientsService()) {
         self.ingredientsService = ingredientsService
+        self.product = product
+        
         super.init(nibName: nil, bundle: nil)
     }
     
