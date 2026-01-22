@@ -40,7 +40,7 @@ final class MenuViewController: UIViewController {
 //    }
     
     private let provider: MenuProvider
-    private let di: DIContainer
+    private let router: IAppRouter
     
     private var state: MenuViewState = .initial {
         didSet {
@@ -48,9 +48,9 @@ final class MenuViewController: UIViewController {
         }
     }
     
-    init(provider: MenuProvider, di: DIContainer) {
+    init(provider: MenuProvider, router: IAppRouter) {
         self.provider = provider
-        self.di = di
+        self.router = router
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -267,8 +267,7 @@ extension MenuViewController: UITableViewDataSource {
         guard let menuSection = MenuSection(rawValue: indexPath.section), menuSection == .products else { return }
         
         let product = provider.products[indexPath.row]
-        let vc = di.screenFactory.makeProductDetailsScreen(product: product)
-        present(vc, animated: true)
+        router.showProductDetails(product, sourceVC: self)
     }
     
 }

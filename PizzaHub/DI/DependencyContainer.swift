@@ -15,7 +15,9 @@ protocol DIContainer: AnyObject {
     var ingredientsService: IIngredientsService { get }
     var addressSuggestionService: IAddressSuggestionService { get }
     var productsArchiver: ICartService { get }
+    
     var screenFactory: ScreenFactory { get }
+    var appRouter: IAppRouter { get }
     
     var menuProvider: MenuProvider { get }
     
@@ -36,7 +38,10 @@ final class DependencyContainer: DIContainer {
     let addressSuggestionService: IAddressSuggestionService
     let productsArchiver: ICartService
     
-    lazy var screenFactory: ScreenFactory = { // TODO: как будет лучше, все таки через lazy или через let + var di: DIContainer!
+    lazy var appRouter: IAppRouter = {
+        AppRouter(di: self)
+    }()
+    lazy var screenFactory: ScreenFactory = {
         ScreenFactory(di: self)
     }()
     
@@ -51,7 +56,8 @@ final class DependencyContainer: DIContainer {
         addressSuggestionService = AddressSuggestionService(session: session, decoder: decoder)
         productsArchiver = CartService()
         
-        screenFactory = ScreenFactory(di: self)
+//        appRouter = AppRouter(di: self)
+//        screenFactory = ScreenFactory(di: self)
 //        screenFactory.di = self
     }
     
@@ -84,7 +90,7 @@ final class ScreenFactory { // TODO: закрывать интерфейсом?
     
     // MVC sample
     func makeMenuScreen() -> MenuViewController {
-        MenuViewController(provider: di.menuProvider, di: di)
+        MenuViewController(provider: di.menuProvider, router: di.appRouter)
     }
     
     // MVP sample

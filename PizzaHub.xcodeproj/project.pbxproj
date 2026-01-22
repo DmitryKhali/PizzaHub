@@ -10,6 +10,7 @@
 		52284F3D2EE47C9100008C26 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52284F3C2EE47C9100008C26 /* CartViewController.swift */; };
 		52284F472EE4C06F00008C26 /* CartProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52284F462EE4C06F00008C26 /* CartProductCell.swift */; };
 		522C4AB52EF2725A0092CAE0 /* StepperButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522C4AB42EF272590092CAE0 /* StepperButton.swift */; };
+		523AEC8B2F22626600C4DD0E /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AEC8A2F22626600C4DD0E /* AppRouter.swift */; };
 		523DE9012EF81436009DAB96 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523DE9002EF81436009DAB96 /* MainTabViewController.swift */; };
 		524449F22EB60FF600E3AD22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524449D82EB60FF600E3AD22 /* AppDelegate.swift */; };
 		524449F32EB60FF600E3AD22 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524449D92EB60FF600E3AD22 /* SceneDelegate.swift */; };
@@ -68,6 +69,7 @@
 		52284F3C2EE47C9100008C26 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		52284F462EE4C06F00008C26 /* CartProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartProductCell.swift; sourceTree = "<group>"; };
 		522C4AB42EF272590092CAE0 /* StepperButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperButton.swift; sourceTree = "<group>"; };
+		523AEC8A2F22626600C4DD0E /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		523DE9002EF81436009DAB96 /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		524449D82EB60FF600E3AD22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		524449D92EB60FF600E3AD22 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				523DE9002EF81436009DAB96 /* MainTabViewController.swift */,
 				52E9AD432F011A7C00927552 /* TabBarAssembler.swift */,
 				52D2608D2F1BFBEF00E3BE08 /* AppCoordinator.swift */,
+				523AEC8A2F22626600C4DD0E /* AppRouter.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				524449F82EB60FF600E3AD22 /* ProductCell.swift in Sources */,
 				524C46792EC7890F0031E1FF /* ProductImageContainerCell.swift in Sources */,
 				529F4B5D2EBE68DA0060A377 /* CategoriesService.swift in Sources */,
+				523AEC8B2F22626600C4DD0E /* AppRouter.swift in Sources */,
 				524449F92EB60FF600E3AD22 /* MenuViewController.swift in Sources */,
 				52E9AD442F011A7D00927552 /* TabBarAssembler.swift in Sources */,
 				529F4B5B2EBE67EA0060A377 /* BannersService.swift in Sources */,
