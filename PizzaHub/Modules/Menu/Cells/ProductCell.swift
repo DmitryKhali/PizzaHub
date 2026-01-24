@@ -46,10 +46,10 @@ final class ProductCell: UITableViewCell {
     
     private var priceButton = {
         $0.setTitle("от 469 руб", for: .normal)
-        $0.backgroundColor = .orange.withAlphaComponent(0.1)
-        $0.layer.cornerRadius = 20
+        $0.backgroundColor = .orange.withAlphaComponent(0.2)
+        $0.layer.cornerRadius = 16
         $0.setTitleColor(.brown, for: .normal)
-        $0.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        $0.contentEdgeInsets = UIEdgeInsets(top: 3, left: 10, bottom: 3, right: 10)
         $0.heightAnchor.constraint(equalToConstant: 35).isActive = true // TODO - норм?
         return $0
     }(UIButton())
@@ -76,7 +76,7 @@ final class ProductCell: UITableViewCell {
     func update(_ product: Product) {
         nameLabel.text = product.name
         detailLabel.text = product.detail
-        priceButton.setTitle("\(product.price) р", for: .normal)
+        priceButton.setTitle("от \(product.price) ₽", for: .normal)
         productImageView.image = UIImage(named: product.image)
     }
 }

@@ -9,6 +9,6 @@ import Foundation
 
 struct Banner: Codable {
     let title: String
-    let price: String
+    let price: Int
     let imageName: String
 }

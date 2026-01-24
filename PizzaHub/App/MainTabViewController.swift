@@ -70,10 +70,10 @@ final class MainTabViewController: UITabBarController {
     private func setupAppearance() {
         let appearance = UITabBarAppearance()
         appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = .systemBackground
-        appearance.stackedLayoutAppearance.normal.iconColor = UIColor.green // TODO: не рабэтает зеленый цвет
-        appearance.stackedLayoutAppearance.selected.iconColor = UIColor.red
-        
+//        appearance.backgroundColor = .systemBackground
+//        appearance.stackedLayoutAppearance.normal.iconColor = UIColor.black // TODO: не рабэтает зеленый цвет
+        appearance.stackedLayoutAppearance.selected.iconColor = UIColor.black
+                
         self.tabBar.standardAppearance = appearance
         self.tabBar.scrollEdgeAppearance = appearance // TODO: Краевое состояние — когда контент прокручен до самого низа
     }

@@ -68,7 +68,8 @@ final class StoryCollectionCell: UICollectionViewCell {
         }
         
         label.snp.makeConstraints { make in
-            make.bottom.left.right.equalTo(containerView).inset(8)
+            make.left.right.equalTo(containerView).inset(2)
+            make.bottom.equalTo(containerView).inset(10)
         }
     }
 }

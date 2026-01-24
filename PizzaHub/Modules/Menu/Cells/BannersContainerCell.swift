@@ -34,6 +34,7 @@ final class BannersContainerCell: UITableViewCell {
         layout.itemSize = CGSize.init(width: 290, height: 120)
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.showsHorizontalScrollIndicator = false
         view.delegate = self
         view.dataSource = self
         view.register(BannerCollectionCell.self, forCellWithReuseIdentifier: BannerCollectionCell.reuseId)
@@ -85,7 +86,8 @@ extension BannersContainerCell {
     
     private func setupConstraints() {
         headerLabel.snp.makeConstraints { make in
-            make.top.left.right.equalTo(contentView)
+            make.left.equalTo(contentView).inset(10)
+            make.top.right.equalTo(contentView)
         }
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(headerLabel.snp.bottom)

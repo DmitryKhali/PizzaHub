@@ -235,15 +235,18 @@ extension MenuViewController: UITableViewDataSource {
         switch menuSection {
         case .stories:
             let cell = tableView.dequeueReusableCell(withIdentifier: StoriesContainerCell.reuseId, for: indexPath) as! StoriesContainerCell
+            cell.selectionStyle = .none
             cell.update(provider.stories)
             return cell
         case .banners:
             let cell = tableView.dequeueReusableCell(withIdentifier: BannersContainerCell.reuseId, for: indexPath) as! BannersContainerCell
+            cell.selectionStyle = .none
             cell.update(provider.banners)
             return cell
         case .products:
             let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.reuseId, for: indexPath) as! ProductCell
             let product = provider.products[indexPath.row]
+            cell.selectionStyle = .none
             cell.update(product)
             return cell
         }

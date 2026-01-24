@@ -14,15 +14,14 @@ final class CategoryCollectionCell: UICollectionViewCell {
     
     private var containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .brown
-        view.applyShadow(cornerRadius: 12, shadowRadius: 0)
+        view.backgroundColor = .orange.withAlphaComponent(0.5)
+        view.applyShadow(cornerRadius: 16, shadowRadius: 0)
         
         return view
     }()
     
     private var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Пиццы"
         label.textAlignment = .center
         
         return label
@@ -59,8 +58,8 @@ extension CategoryCollectionCell {
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(containerView).inset(8)
-            make.bottom.top.equalTo(containerView).inset(4)
+            make.leading.trailing.equalTo(containerView).inset(12)
+            make.bottom.top.equalTo(containerView).inset(6)
         }
     }
 }

@@ -16,7 +16,7 @@ final class CategoriesContainerHeader: UITableViewHeaderFooterView {
     
     private let headerLabel: UILabel = {
         let label = UILabel()
-        label.text = "Пиццы"
+        label.text = "Пицца"
         label.font = .boldSystemFont(ofSize: 26)
         
         return label
@@ -31,17 +31,14 @@ final class CategoriesContainerHeader: UITableViewHeaderFooterView {
         var layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = padding
-
-        let paddingSize = padding * paddingCount
-//        let cellSize = (UIScreen.main.bounds.width - paddingSize) / count
         
-//        layout.itemSize = CGSize(width: cellSize, height: cellSize / 2)
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         layout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(CategoryCollectionCell.self, forCellWithReuseIdentifier: CategoryCollectionCell.reusedId)
         
         return collectionView
@@ -99,7 +96,8 @@ extension CategoriesContainerHeader {
         
         headerLabel.snp.makeConstraints { make in
             make.top.equalTo(collectionView.snp.bottom)
-            make.left.right.bottom.equalTo(contentView)
+            make.left.equalTo(contentView).inset(10)
+            make.right.bottom.equalTo(contentView)
         }
     }
 }

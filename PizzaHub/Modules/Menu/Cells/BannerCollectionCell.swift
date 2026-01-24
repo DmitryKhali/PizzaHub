@@ -23,7 +23,7 @@ final class BannerCollectionCell: UICollectionViewCell {
     private var verticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 15
+        stackView.spacing = 10
         stackView.alignment = .leading
         
         stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 8, leading: 15, bottom: 8, trailing: 10)
@@ -48,13 +48,14 @@ final class BannerCollectionCell: UICollectionViewCell {
     private var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Болгарская пицца"
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         
         return label
     }()
     
     private var priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "399 р."
+        label.text = "от 399 ₽"
         
         return label
     }()
@@ -103,7 +104,7 @@ extension BannerCollectionCell {
     func configure(banner: Banner) {
         imageView.image = UIImage(named: banner.imageName)
         nameLabel.text = banner.title
-        priceLabel.text = banner.price
+        priceLabel.text = "от \(banner.price) ₽"
     }
     
 }
