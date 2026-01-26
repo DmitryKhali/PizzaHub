@@ -9,7 +9,7 @@ import Foundation
 
 struct MenuModel {
     let stories: [Story]
-    let banners: [Banner]
+    let banners: [Product]
     let categories: [Category]
     let products: [Product]
 }
@@ -22,7 +22,7 @@ final class MenuProvider {
     private let productsArchiver: ICartService
     
     var stories: [Story] = []
-    var banners: [Banner] = []
+    var banners: [Product] = []
     var categories: [Category] = []
     var products: [Product] = []
 

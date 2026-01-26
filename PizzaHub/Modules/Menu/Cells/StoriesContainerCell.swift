@@ -10,10 +10,11 @@ import SnapKit
 
 class StoriesContainerCell: UITableViewCell {
     
+    var onStoryTapped: ((Story) -> Void)?
+    
     static let reuseId = "StoriesContainerCell"
-    
     private var stories: [Story] = []
-    
+        
     private lazy var collectionView: UICollectionView = {
         
         let count: CGFloat = 4
@@ -85,6 +86,11 @@ extension StoriesContainerCell: UICollectionViewDataSource {
         cell.configure(with: story)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedItem = stories[indexPath.row]
+        onStoryTapped?(selectedItem)
     }
 }
 

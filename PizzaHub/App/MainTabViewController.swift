@@ -73,7 +73,7 @@ final class MainTabViewController: UITabBarController {
 //        appearance.backgroundColor = .systemBackground
 //        appearance.stackedLayoutAppearance.normal.iconColor = UIColor.black // TODO: не рабэтает зеленый цвет
         appearance.stackedLayoutAppearance.selected.iconColor = UIColor.black
-                
+        
         self.tabBar.standardAppearance = appearance
         self.tabBar.scrollEdgeAppearance = appearance // TODO: Краевое состояние — когда контент прокручен до самого низа
     }

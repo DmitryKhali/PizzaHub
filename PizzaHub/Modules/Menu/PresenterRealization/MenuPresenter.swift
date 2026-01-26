@@ -9,7 +9,7 @@ import Foundation
 
 protocol IMenuPresenter {
     var stories: [Story] { get }
-    var banners: [Banner] { get }
+    var banners: [Product] { get }
     var categories: [Category] { get }
     var products: [Product] { get }
     
@@ -22,7 +22,7 @@ final class MenuPresenter {
     private let provider: MenuProviderPresenter
     
     var stories: [Story] = []
-    var banners: [Banner] = []
+    var banners: [Product] = []
     var categories: [Category] = []
     var products: [Product] = []
     

@@ -101,9 +101,9 @@ final class BannerCollectionCell: UICollectionViewCell {
 
 extension BannerCollectionCell {
     
-    func configure(banner: Banner) {
-        imageView.image = UIImage(named: banner.imageName)
-        nameLabel.text = banner.title
+    func configure(banner: Product) {
+        imageView.image = UIImage(named: banner.image)
+        nameLabel.text = banner.name
         priceLabel.text = "от \(banner.price) ₽"
     }
     

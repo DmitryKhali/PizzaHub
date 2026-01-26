@@ -11,7 +11,7 @@ import Combine
 final class MenuViewModel {
     // MARK: Public Properties
     @Published var stories: [Story] = []
-    @Published var banners: [Banner] = []
+    @Published var banners: [Product] = []
     @Published var categories: [Category] = []
     @Published var products: [Product] = []
     

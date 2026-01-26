@@ -17,7 +17,7 @@ final class MenuViewControllerPresenter: UIViewController {
     private let presenter: IMenuPresenter
     
     var stories: [Story] = []
-    var banners: [Banner] = []
+    var banners: [Product] = []
     var categories: [Category] = []
     var products: [Product] = []
     

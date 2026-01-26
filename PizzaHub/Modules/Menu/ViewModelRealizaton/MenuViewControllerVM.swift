@@ -17,7 +17,7 @@ final class MenuViewControllerVM: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     
     private var stories: [Story] = []
-    private var banners: [Banner] = []
+    private var banners: [Product] = []
     private var categories: [Category] = []
     private var products: [Product] = []
     

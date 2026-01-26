@@ -65,6 +65,24 @@ final class MenuViewController: UIViewController {
 //    private var categories: [Category] = []
 //    private var products: [Product] = []
         
+    private let showMapButton: UIButton = {
+        var config = UIButton.Configuration.plain()
+        config.title = "Укажите адрес доставки"
+        config.titleAlignment = .leading
+        config.baseForegroundColor = .black
+        
+        if let basket = UIImage(named: "delivery_bike") {
+            config.image = basket.resized(to: CGSize(width: 24, height: 24))
+        }
+        
+        config.imagePlacement = .leading
+        config.imagePadding = 10
+        config.contentInsets = .init(top: 12, leading: 20, bottom: 12, trailing: 20)
+
+        let button = UIButton(configuration: config)
+        return button
+    }()
+    
     //Создали UI-элемент таблицы
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -236,11 +254,19 @@ extension MenuViewController: UITableViewDataSource {
         case .stories:
             let cell = tableView.dequeueReusableCell(withIdentifier: StoriesContainerCell.reuseId, for: indexPath) as! StoriesContainerCell
             cell.selectionStyle = .none
+            cell.onStoryTapped = { [weak self] story in
+                guard let self else { return }
+                self.router.showStory(sourceVC: self)
+            }
             cell.update(provider.stories)
             return cell
         case .banners:
             let cell = tableView.dequeueReusableCell(withIdentifier: BannersContainerCell.reuseId, for: indexPath) as! BannersContainerCell
             cell.selectionStyle = .none
+            cell.onBannerTapped = { [weak self] banner in
+                guard let self else { return }
+                self.router.showProductDetails(banner, sourceVC: self)
+            }
             cell.update(provider.banners)
             return cell
         case .products:
@@ -282,18 +308,24 @@ extension MenuViewController {
         view.addSubview(tableView)
         view.addSubview(loadingView)
         view.addSubview(errorView)
+        view.addSubview(showMapButton)
     }
     
     //Для установки констрэйнтов (креплений) для позиционирования элементов на вью
     private func setupConstraints() {
+        showMapButton.snp.makeConstraints { make in
+            make.top.left.equalTo(view.safeAreaLayoutGuide)
+        }
+        
         tableView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(showMapButton.snp.bottom)
+            make.left.right.bottom.equalTo(view)
         }
         loadingView.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
         errorView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.edges.equalTo(view)
         }
     }
 }

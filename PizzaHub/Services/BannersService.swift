@@ -8,7 +8,7 @@
 import Foundation
 
 protocol IBannersService {
-    func fetchBanners(completion: @escaping (Result<[Banner], Error>) -> ())
+    func fetchBanners(completion: @escaping (Result<[Product], Error>) -> ())
 }
 
 final class BannersService: IBannersService {
@@ -21,7 +21,7 @@ final class BannersService: IBannersService {
         self.decoder = decoder
     }
     
-    func fetchBanners(completion: @escaping (Result<[Banner], Error>) -> ()) {
+    func fetchBanners(completion: @escaping (Result<[Product], Error>) -> ()) {
         
         guard let url = URL(string: "http://localhost:3000/banners") else {
             completion(.failure(NetworkError.invalidURL))
@@ -43,7 +43,7 @@ final class BannersService: IBannersService {
             }
             
             do {
-                let banners = try self.decoder.decode([Banner].self, from: data)
+                let banners = try self.decoder.decode([Product].self, from: data)
                 
                 DispatchQueue.main.async {
                     completion(.success(banners))

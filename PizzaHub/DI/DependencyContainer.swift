@@ -122,4 +122,8 @@ final class ScreenFactory { // TODO: закрывать интерфейсом?
     func makeProductDetailsScreen(product: Product) -> ProductDetailsViewController {
         ProductDetailsViewController(product: product)
     }
+    
+    func makeStory() -> StoryViewController {
+        StoryViewController()
+    }
 }

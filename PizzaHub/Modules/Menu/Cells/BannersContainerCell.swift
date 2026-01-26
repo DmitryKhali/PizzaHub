@@ -10,9 +10,11 @@ import SnapKit
 
 final class BannersContainerCell: UITableViewCell {
     
+    var onBannerTapped: ((Product) -> Void)?
+    
     static let reuseId = "BannersContainerCell"
     
-    private var banners: [Banner] = []
+    private var banners: [Product] = []
     
     let headerLabel: UILabel = {
         var label = UILabel()
@@ -54,7 +56,7 @@ final class BannersContainerCell: UITableViewCell {
 }
 
 extension BannersContainerCell {
-    func update(_ banners: [Banner]) {
+    func update(_ banners: [Product]) {
         self.banners = banners
         collectionView.reloadData()
     }
@@ -75,6 +77,11 @@ extension BannersContainerCell: UICollectionViewDataSource {
         let banner = banners[indexPath.item]
         cell.configure(banner: banner)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = banners[indexPath.row]
+        onBannerTapped?(cell)
     }
 }
 

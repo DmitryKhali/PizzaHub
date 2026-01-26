@@ -37,7 +37,7 @@ extension MenuProviderPresenter {
         var errors: [Error] = []
         
         var fetchedStories: [Story]?
-        var fetchedBanners: [Banner]?
+        var fetchedBanners: [Product]?
         var fetchedCategories: [Category]?
         var fetchedProducts: [Product]?
         
