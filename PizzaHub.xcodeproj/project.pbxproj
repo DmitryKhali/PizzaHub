@@ -37,8 +37,6 @@
 		527C4FBE2EF876AD0081122C /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527C4FBD2EF876AD0081122C /* DependencyContainer.swift */; };
 		527F58592F209F49007730BB /* MenuViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527F58582F209F49007730BB /* MenuViewState.swift */; };
 		527F585B2F20FEFB007730BB /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527F585A2F20FEFB007730BB /* ErrorView.swift */; };
-		5298984D2F1E7A2100D460E1 /* MenuViewControllerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5298984C2F1E7A2000D460E1 /* MenuViewControllerVM.swift */; };
-		529898532F1E7AE200D460E1 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529898522F1E7AE200D460E1 /* MenuViewModel.swift */; };
 		529F4B532EBE62D50060A377 /* StoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529F4B522EBE62D50060A377 /* StoriesService.swift */; };
 		529F4B572EBE66640060A377 /* StoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529F4B562EBE66640060A377 /* StoryCollectionCell.swift */; };
 		529F4B592EBE67A10060A377 /* BannerCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529F4B582EBE67A10060A377 /* BannerCollectionCell.swift */; };
@@ -94,8 +92,6 @@
 		527C4FBD2EF876AD0081122C /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		527F58582F209F49007730BB /* MenuViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewState.swift; sourceTree = "<group>"; };
 		527F585A2F20FEFB007730BB /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
-		5298984C2F1E7A2000D460E1 /* MenuViewControllerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewControllerVM.swift; sourceTree = "<group>"; };
-		529898522F1E7AE200D460E1 /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
 		529F4B522EBE62D50060A377 /* StoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesService.swift; sourceTree = "<group>"; };
 		529F4B562EBE66640060A377 /* StoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCollectionCell.swift; sourceTree = "<group>"; };
 		529F4B582EBE67A10060A377 /* BannerCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionCell.swift; sourceTree = "<group>"; };
@@ -264,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				52AADE082F26187F0081EFC2 /* Stories */,
-				529898442F1E389300D460E1 /* ViewModelRealizaton */,
 				52444A1E2EBB97F000E3AD22 /* Cells */,
 				524449E92EB60FF600E3AD22 /* MenuViewController.swift */,
 				52D2608F2F1CE0BD00E3BE08 /* MenuProvider.swift */,
@@ -307,15 +302,6 @@
 				52C8C1F02EC8E1C0000B71F0 /* AdditionalIngredientCell.swift */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		529898442F1E389300D460E1 /* ViewModelRealizaton */ = {
-			isa = PBXGroup;
-			children = (
-				529898522F1E7AE200D460E1 /* MenuViewModel.swift */,
-				5298984C2F1E7A2000D460E1 /* MenuViewControllerVM.swift */,
-			);
-			path = ViewModelRealizaton;
 			sourceTree = "<group>";
 		};
 		52AADE082F26187F0081EFC2 /* Stories */ = {
@@ -440,7 +426,6 @@
 				524449F22EB60FF600E3AD22 /* AppDelegate.swift in Sources */,
 				524449F32EB60FF600E3AD22 /* SceneDelegate.swift in Sources */,
 				52ACE41C2F15707E00B28A07 /* AddressSuggestionService.swift in Sources */,
-				529898532F1E7AE200D460E1 /* MenuViewModel.swift in Sources */,
 				527F585B2F20FEFB007730BB /* ErrorView.swift in Sources */,
 				52D2608C2F1A8BFC00E3BE08 /* CartService.swift in Sources */,
 				52A258D82EDC46C200241E75 /* Ingredient.swift in Sources */,
@@ -455,7 +440,6 @@
 				52A258D62EDC465F00241E75 /* IngredientsService.swift in Sources */,
 				524449F62EB60FF600E3AD22 /* Banner.swift in Sources */,
 				524449F72EB60FF600E3AD22 /* Product.swift in Sources */,
-				5298984D2F1E7A2100D460E1 /* MenuViewControllerVM.swift in Sources */,
 				52284F472EE4C06F00008C26 /* CartProductCell.swift in Sources */,
 				52D260902F1CE0BD00E3BE08 /* MenuProvider.swift in Sources */,
 				52E67FA42F127EF9005023D0 /* FindAddressCell.swift in Sources */,
