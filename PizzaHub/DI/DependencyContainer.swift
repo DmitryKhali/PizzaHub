@@ -20,9 +20,6 @@ protocol DIContainer: AnyObject {
     var appRouter: IAppRouter { get }
     
     var menuProvider: MenuProvider { get }
-    
-    // Presenter realization sample
-    var menuProviderPresenter: MenuProviderPresenter { get }
 }
 
 final class DependencyContainer: DIContainer {
@@ -64,10 +61,6 @@ final class DependencyContainer: DIContainer {
     var menuProvider: MenuProvider {
         MenuProvider(storiesService: storiesService, bannersService: bannersService, categoriesService: categoriesService, productsService: productsService, productsArchiver: productsArchiver)
     }
-    
-    var menuProviderPresenter: MenuProviderPresenter {
-        MenuProviderPresenter(storiesService: storiesService, bannersService: bannersService, categoriesService: categoriesService, productsService: productsService, productsArchiver: productsArchiver)
-    }
 }
 
 final class ScreenFactory { // TODO: закрывать интерфейсом?
@@ -92,17 +85,7 @@ final class ScreenFactory { // TODO: закрывать интерфейсом?
     func makeMenuScreen() -> MenuViewController {
         MenuViewController(provider: di.menuProvider, router: di.appRouter)
     }
-    
-    // MVP sample
-    func makeMenuScreenWithPresenter() -> MenuViewControllerPresenter {
-        let presenter = MenuPresenter(provider: di.menuProviderPresenter)
-        let vewController = MenuViewControllerPresenter(presenter: presenter)
         
-        presenter.viewController = vewController
-        
-        return vewController
-    }
-    
     // MVVM sample
     func makeMenuScreenMVVM() -> MenuViewControllerVM {
         let viewModel = MenuViewModel(provider: di.menuProvider)
