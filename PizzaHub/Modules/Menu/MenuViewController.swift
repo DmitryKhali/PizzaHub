@@ -15,30 +15,7 @@ enum MenuSection: Int, CaseIterable {
 }
 
 final class MenuViewController: UIViewController {
-    
-    // код до внедрения Provider
-//    private let storiesService: IStoriesService
-//    private let bannersService: IBannersService
-//    private let categoriesService: ICategoriesService
-//    private let productsService: IProductsService
-//    private let productsArchiver: ICartService
-//    
-//    init(
-//        storiesService: IStoriesService,
-//        bannersService: IBannersService,
-//        categoriesService: ICategoriesService,
-//        productsService: IProductsService,
-//        productsArchiver: ICartService
-//    ) {
-//        self.storiesService = storiesService
-//        self.bannersService = bannersService
-//        self.categoriesService = categoriesService
-//        self.productsService = productsService
-//        self.productsArchiver = productsArchiver
-//        
-//        super.init(nibName: nil, bundle: nil)
-//    }
-    
+        
     private let provider: MenuProvider
     private let router: IAppRouter
     
@@ -58,13 +35,7 @@ final class MenuViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
-    // код до внедрения Provider
-//    private var stories: [Story] = []
-//    private var banners: [Banner] = []
-//    private var categories: [Category] = []
-//    private var products: [Product] = []
-        
+                
     private let showMapButton: UIButton = {
         var config = UIButton.Configuration.plain()
         config.title = "Укажите адрес доставки"
@@ -124,13 +95,7 @@ final class MenuViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
-        
-        // код до внедрения Provider
-//        fetchStories()
-//        fetchBanners()
-//        fetchCategories()
-//        fetchProducts()
-        
+                
         loadData()
     }
 }
@@ -151,55 +116,6 @@ extension MenuViewController {
             }
         }
     }
-    
-    // код до внедрения Provider
-//    func fetchStories() {
-//        storiesService.fetchStories { [weak self] result in
-//            guard let self else { return }
-//            switch result {
-//            case .success(let stories):
-//                self.stories = stories
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
-//    
-//    func fetchBanners() {
-//        bannersService.fetchBanners { [weak self] result in
-//            guard let self else { return }
-//            switch result {
-//            case .success(let banners):
-//                self.banners = banners
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
-//    
-//    func fetchCategories() {
-//        categoriesService.fetchCategories { [weak self] result in
-//            guard let self else { return }
-//            switch result {
-//            case .success(let categories):
-//                self.categories = categories
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
-//    
-//    func fetchProducts() {
-//        productsService.fetchProducts { [weak self] result in
-//            guard let self else { return }
-//            switch result {
-//            case .success(let products):
-//                self.products = products
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
 }
 
 // MARK: - UI state
