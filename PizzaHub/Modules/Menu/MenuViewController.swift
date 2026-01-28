@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 enum MenuSection: Int, CaseIterable {
     case stories
@@ -16,17 +17,12 @@ enum MenuSection: Int, CaseIterable {
 
 final class MenuViewController: UIViewController {
         
-    private let provider: MenuProvider
+    private let viewModel: MenuViewModel
     private let router: IAppRouter
+    private var cancellables = Set<AnyCancellable>()
     
-    private var state: MenuViewState = .initial {
-        didSet {
-            render(state)
-        }
-    }
-    
-    init(provider: MenuProvider, router: IAppRouter) {
-        self.provider = provider
+    init(viewModel: MenuViewModel, router: IAppRouter) {
+        self.viewModel = viewModel
         self.router = router
         
         super.init(nibName: nil, bundle: nil)
@@ -85,7 +81,8 @@ final class MenuViewController: UIViewController {
     private lazy var errorView: ErrorView = {
         var errorView = ErrorView()
         errorView.onRetryAction = { [weak self] in
-            self?.loadData()
+            guard let self else { return }
+            self.viewModel.retryLoadData()
         }
         
         return errorView
@@ -95,31 +92,26 @@ final class MenuViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
-                
-        loadData()
-    }
-}
-
-//MARK: - Business Logic
-extension MenuViewController {
-    private func loadData() {
-        state = .loading
+        setupBindings()
         
-        provider.loadData { result in
-            switch result {
-            case .success(let success):
-                self.state = .loaded
-                self.tableView.reloadData()
-            case .failure(let failure):
-                self.state = .error
-                print(failure.localizedDescription)
+        viewModel.viewDidLoad()
+    }
+    
+    private func setupBindings() {
+        viewModel.$state
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                guard let self else { return }
+                self.render(state)
+                self.reloadData()
             }
-        }
+            .store(in: &cancellables)
     }
 }
 
 // MARK: - UI state
 extension MenuViewController {
+    
     private func render(_ state: MenuViewState) {
         switch state {
         case .initial, .loading:
@@ -135,6 +127,10 @@ extension MenuViewController {
             errorView.isHidden = false
             tableView.isHidden = true
         }
+    }
+    
+    private func reloadData() {
+        self.tableView.reloadData()
     }
 }
 
@@ -155,7 +151,7 @@ extension MenuViewController: UITableViewDataSource {
         
         switch menuSection {
         case .products:
-            return provider.products.count ?? 0
+            return viewModel.products.count
         default:
             return 1
         }
@@ -174,7 +170,7 @@ extension MenuViewController: UITableViewDataSource {
                 guard let self else { return }
                 self.router.showStory(sourceVC: self)
             }
-            cell.update(provider.stories)
+            cell.update(viewModel.stories)
             return cell
         case .banners:
             let cell = tableView.dequeueReusableCell(withIdentifier: BannersContainerCell.reuseId, for: indexPath) as! BannersContainerCell
@@ -183,11 +179,11 @@ extension MenuViewController: UITableViewDataSource {
                 guard let self else { return }
                 self.router.showProductDetails(banner, sourceVC: self)
             }
-            cell.update(provider.banners)
+            cell.update(viewModel.banners)
             return cell
         case .products:
             let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.reuseId, for: indexPath) as! ProductCell
-            let product = provider.products[indexPath.row]
+            let product = viewModel.products[indexPath.row]
             cell.selectionStyle = .none
             cell.update(product)
             return cell
@@ -201,7 +197,7 @@ extension MenuViewController: UITableViewDataSource {
         switch menuSection {
         case .products:
             guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CategoriesContainerHeader.reuseId) as? CategoriesContainerHeader else { return UIView() }
-            header.update(provider.categories)
+            header.update(viewModel.categories)
             return header
         default:
             return EmptyView()
@@ -211,7 +207,7 @@ extension MenuViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let menuSection = MenuSection(rawValue: indexPath.section), menuSection == .products else { return }
         
-        let product = provider.products[indexPath.row]
+        let product = viewModel.products[indexPath.row]
         router.showProductDetails(product, sourceVC: self)
     }
     

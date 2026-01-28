@@ -61,6 +61,7 @@ final class DependencyContainer: DIContainer {
     var menuProvider: MenuProvider {
         MenuProvider(storiesService: storiesService, bannersService: bannersService, categoriesService: categoriesService, productsService: productsService, productsArchiver: productsArchiver)
     }
+   
 }
 
 final class ScreenFactory { // TODO: закрывать интерфейсом?
@@ -83,7 +84,8 @@ final class ScreenFactory { // TODO: закрывать интерфейсом?
     
     // MVC sample
     func makeMenuScreen() -> MenuViewController {
-        MenuViewController(provider: di.menuProvider, router: di.appRouter)
+        let vm = MenuViewModel(provider: di.menuProvider)
+        return MenuViewController(viewModel: vm, router: di.appRouter)
     }
         
     func makeCartScreen() -> CartViewController {
