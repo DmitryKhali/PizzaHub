@@ -48,6 +48,7 @@
 		52A258D82EDC46C200241E75 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A258D72EDC46C200241E75 /* Ingredient.swift */; };
 		52AADE0A2F2618940081EFC2 /* StoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AADE092F2618940081EFC2 /* StoryViewController.swift */; };
 		52AADE0E2F2631BC0081EFC2 /* UIImage+resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AADE0D2F2631BC0081EFC2 /* UIImage+resize.swift */; };
+		52AADE272F2A81290081EFC2 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AADE262F2A81290081EFC2 /* MenuPresenter.swift */; };
 		52ACE41A2F156CDE00B28A07 /* AddressSuggestionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ACE4192F156CDE00B28A07 /* AddressSuggestionResponse.swift */; };
 		52ACE41C2F15707E00B28A07 /* AddressSuggestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ACE41B2F15707E00B28A07 /* AddressSuggestionService.swift */; };
 		52C8C1ED2EC895D1000B71F0 /* ProductOptionsContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C8C1EC2EC895D1000B71F0 /* ProductOptionsContainerCell.swift */; };
@@ -103,6 +104,7 @@
 		52A258D72EDC46C200241E75 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		52AADE092F2618940081EFC2 /* StoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryViewController.swift; sourceTree = "<group>"; };
 		52AADE0D2F2631BC0081EFC2 /* UIImage+resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+resize.swift"; sourceTree = "<group>"; };
+		52AADE262F2A81290081EFC2 /* MenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
 		52ACE4192F156CDE00B28A07 /* AddressSuggestionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSuggestionResponse.swift; sourceTree = "<group>"; };
 		52ACE41B2F15707E00B28A07 /* AddressSuggestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSuggestionService.swift; sourceTree = "<group>"; };
 		52C753A92E8D7FC20085CD39 /* PizzaHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PizzaHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -264,6 +266,7 @@
 				524449E92EB60FF600E3AD22 /* MenuViewController.swift */,
 				52D2608F2F1CE0BD00E3BE08 /* MenuProvider.swift */,
 				527F58582F209F49007730BB /* MenuViewState.swift */,
+				52AADE262F2A81290081EFC2 /* MenuPresenter.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				52AADE0E2F2631BC0081EFC2 /* UIImage+resize.swift in Sources */,
 				523DE9012EF81436009DAB96 /* MainTabViewController.swift in Sources */,
 				524449F52EB60FF600E3AD22 /* UIViewExtensions.swift in Sources */,
+				52AADE272F2A81290081EFC2 /* MenuPresenter.swift in Sources */,
 				529F4B612EBF4E870060A377 /* EmptyView.swift in Sources */,
 				524C46752EC785E80031E1FF /* ProductDetailsViewController.swift in Sources */,
 				52444A092EB7A76E00E3AD22 /* UIScreen + sizes.swift in Sources */,
