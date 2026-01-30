@@ -23,7 +23,7 @@ final class MenuViewController: UIViewController {
     private var banners: [Product] = []
     private var categories: [Category] = []
     private var products: [Product] = []
-    
+        
     private var state: MenuViewState = .initial {
         didSet {
             render(state)
@@ -217,6 +217,10 @@ extension MenuViewController: UITableViewDataSource {
         case .products:
             guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CategoriesContainerHeader.reuseId) as? CategoriesContainerHeader else { return UIView() }
             header.update(categories)
+            header.onCategorySelected = { [weak self] categoryId in
+                guard let self else { return }
+                self.onCategoryTapped(category: categoryId)
+            }
             return header
         default:
             return EmptyView()
@@ -230,6 +234,22 @@ extension MenuViewController: UITableViewDataSource {
         router.showProductDetails(product, sourceVC: self)
     }
     
+}
+
+extension MenuViewController {
+    private func onCategoryTapped(category: String) {
+        guard let indexPath = findFirstProductIndexPath(for: category) else {
+            return
+        }
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
+    
+    private func findFirstProductIndexPath(for categoryId: String) -> IndexPath? {
+        guard let firstIndex = products.firstIndex (where: { $0.category == categoryId }) else {
+            return nil
+        }
+        return IndexPath(row: firstIndex, section: MenuSection.products.rawValue)
+    }
 }
 
 //MARK: - Layout

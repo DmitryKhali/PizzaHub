@@ -36,7 +36,7 @@ final class BannersService: IBannersService {
             throw NetworkError.statusCode
         }
         
-        let products = try decoder.decode([Product].self, from: data)
-        return products
+        let banners = try decoder.decode([Product].self, from: data)
+        return banners
     }
 }

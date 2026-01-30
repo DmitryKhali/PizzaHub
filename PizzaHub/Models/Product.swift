@@ -9,6 +9,7 @@ import Foundation
 
 struct Product: Codable, Equatable {
     var id: String
+    var category: String
     var name: String
     var detail: String
     var price: Int

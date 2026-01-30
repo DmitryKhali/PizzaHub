@@ -8,5 +8,6 @@
 import Foundation
 
 struct Category: Codable {
+    let categoryId: String
     let title: String
 }

@@ -23,6 +23,7 @@ final class CategoryCollectionCell: UICollectionViewCell {
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         
         return label
     }()
@@ -40,8 +41,16 @@ final class CategoryCollectionCell: UICollectionViewCell {
 }
 
 extension CategoryCollectionCell {
-    func configure(with title: String) {
+    func configure(with title: String, isSelected: Bool = false) {
         titleLabel.text = title
+        if isSelected {
+            containerView.backgroundColor = .orange.withAlphaComponent(0.8)
+            titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        }
+        else {
+            containerView.backgroundColor = .orange.withAlphaComponent(0.5)
+            titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        }
     }
 }
 
