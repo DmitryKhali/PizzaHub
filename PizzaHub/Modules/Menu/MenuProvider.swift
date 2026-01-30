@@ -21,11 +21,6 @@ final class MenuProvider {
     private let productsService: IProductsService
     private let productsArchiver: ICartService
     
-    var stories: [Story] = []
-    var banners: [Product] = []
-    var categories: [Category] = []
-    var products: [Product] = []
-
     init(
         storiesService: IStoriesService,
         bannersService: IBannersService,
@@ -44,70 +39,15 @@ final class MenuProvider {
 
 // MARK: - Public
 extension MenuProvider {
-    func loadData(completion: @escaping (Result<MenuModel, Error>) -> () ) {
-        let group = DispatchGroup()
-        var errors: [Error] = []
+    func loadData() async throws -> MenuModel {
         
-        group.enter()
-        storiesService.fetchStories { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let stories):
-                self.stories = stories
-            case .failure(let error):
-                errors.append(error)
-            }
-            group.leave()
-        }
+        async let fetchedStories = storiesService.fetchStories()
+        async let fetchedBanners = bannersService.fetchBanners()
+        async let fetchedCategories = categoriesService.fetchCategories()
+        async let fetchedProducts = productsService.fetchProducts()
         
-        group.enter()
-        bannersService.fetchBanners { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let banners):
-                self.banners = banners
-            case .failure(let error):
-                errors.append(error)
-            }
-            group.leave()
-        }
+        let (stories, banners, categories, products) = try await (fetchedStories, fetchedBanners, fetchedCategories, fetchedProducts)
         
-        group.enter()
-        categoriesService.fetchCategories { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let categories):
-                self.categories = categories
-            case .failure(let error):
-                errors.append(error)
-            }
-            group.leave()
-        }
-        
-        group.enter()
-        productsService.fetchProducts { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let products):
-                self.products = products
-            case .failure(let error):
-                errors.append(error)
-            }
-            group.leave()
-        }
-        
-        group.notify(queue: .main) { [weak self] in
-            guard let self = self else { return }
-            
-            if let firstError = errors.first {
-                completion(.failure(firstError))
-                return
-            }
-                        
-            let menuModel = MenuModel(stories: stories, banners: banners, categories: categories, products: products)
-            
-            completion(.success(menuModel))
-            
-        }
+        return MenuModel(stories: stories, banners: banners, categories: categories, products: products)
     }
 }

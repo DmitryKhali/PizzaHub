@@ -15,7 +15,7 @@ enum NetworkError: Error {
 }
 
 protocol IStoriesService {
-    func fetchStories(completion: @escaping (Result<[Story], Error>) -> ())
+    func fetchStories() async throws -> [Story]
 }
 
 final class StoriesService: IStoriesService {
@@ -29,40 +29,23 @@ final class StoriesService: IStoriesService {
     }
     
     
-    func fetchStories(completion: @escaping (Result<[Story], Error>) -> ()) {
+    func fetchStories() async throws -> [Story] {
         
         guard let url = URL(string: "http://localhost:3000/stories") else {
-            completion(.failure(NetworkError.invalidURL))
-            return
+            throw NetworkError.invalidURL
         }
         
         let request = URLRequest(url: url)
         
-        let task = session.dataTask(with: request) { data, response, error in
-            if error != nil {
-                completion(.failure(NetworkError.statusCode))
-                return
-            }
-            
-            guard let data = data else {
-                completion(.failure(NetworkError.noData))
-                return
-            }
-            
-            do {
-                let stories = try self.decoder.decode([Story].self, from: data)
-                
-                DispatchQueue.main.async {
-                    completion(.success(stories))
-                }
-                
-            } catch {
-                completion(.failure(NetworkError.decode))
-            }
+        let (data, response) = try await session.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              (200...299).contains(httpResponse.statusCode) else {
+            throw NetworkError.statusCode
         }
         
-        task.resume()
-        
+        let stories = try decoder.decode([Story].self, from: data)
+        return stories
     }
     
 }

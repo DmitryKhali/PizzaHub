@@ -8,7 +8,7 @@
 import Foundation
 
 protocol IIngredientsService {
-    func fetchIngredients(completion: @escaping (Result<[Ingredient], Error>) -> ())
+    func fetchIngredients() async throws -> [Ingredient]
 }
 
 final class IngredientsService: IIngredientsService {
@@ -21,38 +21,22 @@ final class IngredientsService: IIngredientsService {
         self.decoder = decoder
     }
     
-    func fetchIngredients(completion: @escaping (Result<[Ingredient], any Error>) -> ()) {
+    func fetchIngredients() async throws -> [Ingredient] {
         
         guard let url = URL(string: "http://localhost:3000/ingredients") else {
-            completion(.failure(NetworkError.invalidURL))
-            return
+            throw NetworkError.invalidURL
         }
         
         let request = URLRequest(url: url)
         
-        let task = session.dataTask(with: request) { data, response, error in
-            if error != nil {
-                completion(.failure(NetworkError.statusCode))
-                return
-            }
-            
-            guard let data = data else {
-                completion(.failure(NetworkError.noData))
-                return
-            }
-            
-            do {
-                let ingredients = try self.decoder.decode([Ingredient].self, from: data)
-                DispatchQueue.main.async {
-                    completion(.success(ingredients))
-                }
-            }
-            catch {
-                print(error.localizedDescription)
-                completion(.failure(NetworkError.decode))
-            }
+        let (data, response) = try await session.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              (200...299).contains(httpResponse.statusCode) else {
+            throw NetworkError.statusCode
         }
         
-        task.resume()
+        let ingredients = try decoder.decode([Ingredient].self, from: data)
+        return ingredients
     }
 }

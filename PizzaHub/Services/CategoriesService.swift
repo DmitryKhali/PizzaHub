@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ICategoriesService {
-    func fetchCategories(completion: @escaping (Result<[Category], Error>) -> ())
+    func fetchCategories() async throws -> [Category]
 }
 
 final class CategoriesService: ICategoriesService {
@@ -21,40 +21,24 @@ final class CategoriesService: ICategoriesService {
         self.decoder = decoder
     }
 
-    func fetchCategories(completion: @escaping (Result<[Category], Error>) -> ()) {
+    func fetchCategories() async throws -> [Category] {
         
         guard let url = URL(string: "http://localhost:3000/categories") else {
-            completion(.failure(NetworkError.invalidURL))
-            return
+            throw NetworkError.invalidURL
         }
         
         let request = URLRequest(url: url)
+
+        let (data, response) = try await session.data(for: request)
         
-        let task = session.dataTask(with: request) { data, response, error in
-            if error != nil {
-                completion(.failure(NetworkError.statusCode))
-                return
-            }
-            
-            guard let data = data else {
-                completion(.failure(NetworkError.noData))
-                return
-            }
-            
-            do {
-                let categories = try self.decoder.decode([Category].self, from: data)
-                
-                DispatchQueue.main.async {
-                    completion(.success(categories))
-                }
-                
-            }
-            catch {
-                completion(.failure(NetworkError.decode))
-            }
+        guard let httpResponse = response as? HTTPURLResponse,
+              (200...299).contains(httpResponse.statusCode) else {
+            throw NetworkError.statusCode
         }
         
-        task.resume()
+        
+        let categories = try decoder.decode([Category].self, from: data)
+        return categories
     }
     
 }

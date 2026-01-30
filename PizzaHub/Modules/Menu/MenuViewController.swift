@@ -19,6 +19,11 @@ final class MenuViewController: UIViewController {
     private let provider: MenuProvider
     private let router: IAppRouter
     
+    private var stories: [Story] = []
+    private var banners: [Product] = []
+    private var categories: [Category] = []
+    private var products: [Product] = []
+    
     private var state: MenuViewState = .initial {
         didSet {
             render(state)
@@ -105,14 +110,24 @@ extension MenuViewController {
     private func loadData() {
         state = .loading
         
-        provider.loadData { result in
-            switch result {
-            case .success(let success):
-                self.state = .loaded
-                self.tableView.reloadData()
-            case .failure(let failure):
-                self.state = .error
-                print(failure.localizedDescription)
+        Task {
+            do {
+                let menuModel = try await provider.loadData()
+                await MainActor.run {
+                    stories = menuModel.stories
+                    banners = menuModel.banners
+                    categories = menuModel.categories
+                    products = menuModel.products
+                    
+                    state = .loaded
+                    tableView.reloadData()
+                }
+            }
+            catch {
+                await MainActor.run {
+                    state = .error
+                    print(error.localizedDescription)
+                }
             }
         }
     }
@@ -155,7 +170,7 @@ extension MenuViewController: UITableViewDataSource {
         
         switch menuSection {
         case .products:
-            return provider.products.count ?? 0
+            return products.count
         default:
             return 1
         }
@@ -174,7 +189,7 @@ extension MenuViewController: UITableViewDataSource {
                 guard let self else { return }
                 self.router.showStory(sourceVC: self)
             }
-            cell.update(provider.stories)
+            cell.update(stories)
             return cell
         case .banners:
             let cell = tableView.dequeueReusableCell(withIdentifier: BannersContainerCell.reuseId, for: indexPath) as! BannersContainerCell
@@ -183,11 +198,11 @@ extension MenuViewController: UITableViewDataSource {
                 guard let self else { return }
                 self.router.showProductDetails(banner, sourceVC: self)
             }
-            cell.update(provider.banners)
+            cell.update(banners)
             return cell
         case .products:
             let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.reuseId, for: indexPath) as! ProductCell
-            let product = provider.products[indexPath.row]
+            let product = products[indexPath.row]
             cell.selectionStyle = .none
             cell.update(product)
             return cell
@@ -201,7 +216,7 @@ extension MenuViewController: UITableViewDataSource {
         switch menuSection {
         case .products:
             guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CategoriesContainerHeader.reuseId) as? CategoriesContainerHeader else { return UIView() }
-            header.update(provider.categories)
+            header.update(categories)
             return header
         default:
             return EmptyView()
@@ -211,7 +226,7 @@ extension MenuViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let menuSection = MenuSection(rawValue: indexPath.section), menuSection == .products else { return }
         
-        let product = provider.products[indexPath.row]
+        let product = products[indexPath.row]
         router.showProductDetails(product, sourceVC: self)
     }
     

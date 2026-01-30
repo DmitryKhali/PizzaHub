@@ -76,13 +76,14 @@ final class ProductDetailsViewController: UIViewController {
     }
     
     private func fetchIngredients() {
-        ingredientsService.fetchIngredients { [weak self] result in
-            guard let self else { return }
-            
-            switch result {
-            case .success(let ingresients):
-                self.ingredients = ingresients
-            case .failure(let error):
+        Task {
+            do {
+                let fetchedIngredients = try await ingredientsService.fetchIngredients()
+                await MainActor.run {
+                    ingredients = fetchedIngredients
+                }
+            }
+            catch {
                 print(error.localizedDescription)
             }
         }
