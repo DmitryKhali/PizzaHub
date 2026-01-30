@@ -14,13 +14,13 @@ final class CategoriesContainerHeader: UITableViewHeaderFooterView {
     
     private var categories: [Category] = []
     
-    private let headerLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Пицца"
-        label.font = .boldSystemFont(ofSize: 26)
-        
-        return label
-    }()
+//    private let headerLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "Пицца"
+//        label.font = .boldSystemFont(ofSize: 26)
+//        
+//        return label
+//    }()
     
     private lazy var collectionView: UICollectionView = {
         
@@ -46,6 +46,10 @@ final class CategoriesContainerHeader: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
+        
+        contentView.backgroundColor = .white
+        backgroundView = UIView()
+        backgroundView?.backgroundColor = .white
         
         setupViews()
         setupCinstraints()
@@ -84,20 +88,20 @@ extension CategoriesContainerHeader: UICollectionViewDataSource {
 
 extension CategoriesContainerHeader {
     private func setupViews() {
-        contentView.addSubview(headerLabel)
+//        contentView.addSubview(headerLabel)
         contentView.addSubview(collectionView)
     }
     
     private func setupCinstraints() {
         collectionView.snp.makeConstraints { make in
-            make.top.left.right.equalTo(contentView)
-            make.height.equalTo(60)
+            make.edges.equalTo(contentView)
+            make.height.equalTo(55)
         }
         
-        headerLabel.snp.makeConstraints { make in
-            make.top.equalTo(collectionView.snp.bottom)
-            make.left.equalTo(contentView).inset(10)
-            make.right.bottom.equalTo(contentView)
-        }
+//        headerLabel.snp.makeConstraints { make in
+//            make.top.equalTo(collectionView.snp.bottom)
+//            make.left.equalTo(contentView).inset(10)
+//            make.right.bottom.equalTo(contentView)
+//        }
     }
 }
