@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "dodster_classic.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
