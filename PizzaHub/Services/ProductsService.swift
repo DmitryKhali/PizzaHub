@@ -8,7 +8,7 @@
 import Foundation
 
 protocol IProductsService {
-    func fetchProducts(completion: @escaping (Result<[Product], Error>) -> ())
+    func fetchProducts() async throws -> [Product]
 }
 
 class ProductsService: IProductsService {
@@ -21,41 +21,23 @@ class ProductsService: IProductsService {
         self.decoder = decoder
     }
     
-    func fetchProducts(completion: @escaping (Result<[Product], Error>) -> ()) {
+    func fetchProducts() async throws -> [Product] {
         
         guard let url = URL(string: "http://localhost:3000/products") else {
-            completion(.failure(NetworkError.invalidURL))
-            return
+            throw NetworkError.invalidURL
         }
         
         let request = URLRequest(url: url)
         
-        let task = session.dataTask(with: request) { data, response, error in
-            
-            if error != nil {
-                completion(.failure(NetworkError.statusCode))
-                return
-            }
-            
-            guard let data = data else {
-                completion(.failure(NetworkError.noData))
-                return
-            }
-            
-            do {
-                let prosucts = try self.decoder.decode([Product].self, from: data)
-                
-                DispatchQueue.main.async {
-                    completion(.success(prosucts))
-                }
-                
-            }
-            catch {
-                completion(.failure(NetworkError.decode))
-            }
+        let (data, response) = try await session.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              (200...299).contains(httpResponse.statusCode) else {
+            throw NetworkError.statusCode
         }
         
-        task.resume()
+        let products = try decoder.decode([Product].self, from: data)
+        return products
     }
     
 }
