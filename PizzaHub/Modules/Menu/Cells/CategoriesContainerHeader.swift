@@ -14,7 +14,7 @@ final class CategoriesContainerHeader: UITableViewHeaderFooterView {
     var onCategorySelected: ((String) -> Void)?
     
     private var categories: [Category] = []
-    private var selectedCategory: String?
+    private var selectedCategoryId: String?
     
 //    private let headerLabel: UILabel = {
 //        let label = UILabel()
@@ -66,10 +66,13 @@ final class CategoriesContainerHeader: UITableViewHeaderFooterView {
 }
 
 extension CategoriesContainerHeader {
-    func update(_ categories: [Category]) {
+    func update(_ categories: [Category], selectedCategoryId: String?) {
         self.categories = categories
-        if let firstCategory = categories.first {
-            selectedCategory = firstCategory.categoryId
+        if let categoryId = selectedCategoryId {
+            self.selectedCategoryId = categoryId
+        }
+        else if let firstCategory = categories.first {
+            self.selectedCategoryId = firstCategory.categoryId
         }
         collectionView.reloadData()
     }
@@ -88,7 +91,7 @@ extension CategoriesContainerHeader: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionCell.reusedId, for: indexPath) as! CategoryCollectionCell
 
         let category = categories[indexPath.item]
-        let isSelected = category.categoryId == selectedCategory
+        let isSelected = category.categoryId == selectedCategoryId
         cell.configure(with: category.title, isSelected: isSelected)
         
         return cell
@@ -123,9 +126,8 @@ extension CategoriesContainerHeader {
 // MARK: - Private
 extension CategoriesContainerHeader {
     private func onCategorySelected(categoryId: String) {
-        selectedCategory = categoryId
+        selectedCategoryId = categoryId
         onCategorySelected?(categoryId)
-        
         collectionView.reloadData()
     }
 }

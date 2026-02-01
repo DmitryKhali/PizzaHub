@@ -24,6 +24,9 @@ final class MenuViewController: UIViewController {
     private var categories: [Category] = []
     private var products: [Product] = []
         
+    private var isProgrammaticScroll = false
+    private var selectedCategoryId: String?
+    
     private var state: MenuViewState = .initial {
         didSet {
             render(state)
@@ -155,7 +158,17 @@ extension MenuViewController {
 
 //MARK: - Table Delegate
 extension MenuViewController: UITableViewDelegate {
-    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("scrollViewDidScroll start")
+        guard !isProgrammaticScroll,
+            let firstCategory = getActiveCategoryIdFromVisibleCells(),
+              selectedCategoryId != firstCategory else { return }
+        
+        selectedCategoryId = firstCategory
+        
+        updateHeaderForSelectedCategory()
+        print("scrollViewDidScroll end")
+    }
 }
 
 extension MenuViewController: UITableViewDataSource {
@@ -216,11 +229,11 @@ extension MenuViewController: UITableViewDataSource {
         switch menuSection {
         case .products:
             guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CategoriesContainerHeader.reuseId) as? CategoriesContainerHeader else { return UIView() }
-            header.update(categories)
             header.onCategorySelected = { [weak self] categoryId in
                 guard let self else { return }
                 self.onCategoryTapped(category: categoryId)
             }
+            header.update(categories, selectedCategoryId: selectedCategoryId)
             return header
         default:
             return EmptyView()
@@ -238,10 +251,20 @@ extension MenuViewController: UITableViewDataSource {
 
 extension MenuViewController {
     private func onCategoryTapped(category: String) {
+        print("📱 Пользователь тапнул на категорию: \(category)")
+        isProgrammaticScroll = true
         guard let indexPath = findFirstProductIndexPath(for: category) else {
             return
         }
-        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        
+        print("🔄 Начинаем программный скролл к категории")
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            print("animate START")
+            self?.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }, completion: { [weak self] _ in
+            print("animate END")
+            self?.isProgrammaticScroll = false
+        })
     }
     
     private func findFirstProductIndexPath(for categoryId: String) -> IndexPath? {
@@ -249,6 +272,29 @@ extension MenuViewController {
             return nil
         }
         return IndexPath(row: firstIndex, section: MenuSection.products.rawValue)
+    }
+    
+    private func updateHeaderForSelectedCategory() {
+        guard let header = tableView.headerView(forSection: MenuSection.products.rawValue) as? CategoriesContainerHeader else {
+            return
+        }
+        header.update(categories, selectedCategoryId: selectedCategoryId)
+    }
+    
+    private func getActiveCategoryIdFromVisibleCells() -> String? {
+        let headerRect = tableView.rectForHeader(inSection: MenuSection.products.rawValue)
+        
+        let visibleRect = CGRect(
+            x: tableView.contentOffset.x,
+            y: tableView.contentOffset.y + headerRect.height + 5,
+            width: tableView.bounds.width,
+            height: tableView.bounds.height - headerRect.height + 5
+        )
+        
+        let visibleIndexPaths = tableView.indexPathsForRows(in: visibleRect) ?? []
+        guard let firstIndexPath = visibleIndexPaths.first else { return nil }
+        
+        return products[firstIndexPath.row].category
     }
 }
 

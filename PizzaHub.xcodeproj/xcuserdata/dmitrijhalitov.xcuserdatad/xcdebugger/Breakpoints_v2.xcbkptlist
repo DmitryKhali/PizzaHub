@@ -7,80 +7,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BB8A5685-1927-4B23-97CE-123FA192324B"
+            uuid = "12E650DB-4B35-4B56-BD1C-54953004D34C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Modules/Menu/MenuProvider.swift"
+            filePath = "PizzaHub/Modules/Menu/MenuViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "loadData()"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
+            landmarkName = "getActiveCategoryIdFromVisibleCells()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "983B570D-29EA-4099-B7C8-BA9B12E6DEEA"
+            uuid = "51DB2530-EBD4-4184-9D6F-70DE80873F89"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Services/BannersService.swift"
+            filePath = "PizzaHub/Modules/Menu/MenuViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "fetchBanners()"
+            startingLineNumber = "287"
+            endingLineNumber = "287"
+            landmarkName = "getActiveCategoryIdFromVisibleCells()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "932BA84A-19A6-4A14-AAFA-BFECAB8AFD30"
+            uuid = "10BB9614-D80F-458F-8C13-D4E32BDAFB39"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Services/BannersService.swift"
+            filePath = "PizzaHub/Modules/Menu/MenuViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "fetchBanners()"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
+            landmarkName = "getActiveCategoryIdFromVisibleCells()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8CA12E78-6B1A-469D-9864-97809CA69843"
+            uuid = "F78F0010-9676-45EF-971C-CE1C097425BF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Services/StoriesService.swift"
+            filePath = "PizzaHub/Modules/Menu/MenuViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "fetchStories()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A59FD854-7D2B-4153-845E-4357421B58D1"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Services/CategoriesService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "fetchCategories()"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
+            landmarkName = "getActiveCategoryIdFromVisibleCells()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
