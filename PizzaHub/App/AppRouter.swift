@@ -9,7 +9,7 @@ import UIKit
 
 protocol IAppRouter {
     func showProductDetails(_ product: Product, sourceVC: UIViewController)
-    func showStory(sourceVC: UIViewController)
+    func showStory(stories: [Story], selectedStoryIndex: Int, sourceVC: UIViewController)
 }
 
 final class AppRouter: IAppRouter {
@@ -25,9 +25,9 @@ final class AppRouter: IAppRouter {
         sourceVC.present(vc, animated: true)
     }
     
-    func showStory(sourceVC: UIViewController) {
+    func showStory(stories: [Story], selectedStoryIndex: Int, sourceVC: UIViewController) {
         let vc = di.screenFactory.makeStory()
+        vc.setup(with: stories, selectedStoryIndex: selectedStoryIndex)
         sourceVC.present(vc, animated: true)
     }
-    
 }

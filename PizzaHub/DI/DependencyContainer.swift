@@ -85,7 +85,7 @@ final class ScreenFactory { // TODO: закрывать интерфейсом?
     func makeMenuScreen() -> MenuViewController {
         MenuViewController(provider: di.menuProvider, router: di.appRouter)
     }
-        
+    
     func makeCartScreen() -> CartViewController {
         CartViewController()
     }
@@ -98,7 +98,11 @@ final class ScreenFactory { // TODO: закрывать интерфейсом?
         ProductDetailsViewController(product: product)
     }
     
-    func makeStory() -> StoryViewController {
-        StoryViewController()
+    func makeStory() -> StoriesFullscreenViewController {
+        let vc = StoriesFullscreenViewController()
+        vc.modalPresentationStyle = .overFullScreen
+        vc.isModalInPresentation = false
+        
+        return vc
     }
 }

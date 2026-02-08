@@ -10,7 +10,7 @@ import SnapKit
 
 class StoriesContainerCell: UITableViewCell {
     
-    var onStoryTapped: ((Story) -> Void)?
+    var onStoryTapped: ((Story, Int) -> Void)?
     
     static let reuseId = "StoriesContainerCell"
     private var stories: [Story] = []
@@ -90,7 +90,7 @@ extension StoriesContainerCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedItem = stories[indexPath.row]
-        onStoryTapped?(selectedItem)
+        onStoryTapped?(selectedItem, indexPath.row)
     }
 }
 

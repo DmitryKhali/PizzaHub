@@ -198,9 +198,9 @@ extension MenuViewController: UITableViewDataSource {
         case .stories:
             let cell = tableView.dequeueReusableCell(withIdentifier: StoriesContainerCell.reuseId, for: indexPath) as! StoriesContainerCell
             cell.selectionStyle = .none
-            cell.onStoryTapped = { [weak self] story in
+            cell.onStoryTapped = { [weak self] story, storyIndex in
                 guard let self else { return }
-                self.router.showStory(sourceVC: self)
+                self.router.showStory(stories: stories, selectedStoryIndex: storyIndex, sourceVC: self)
             }
             cell.update(stories)
             return cell
