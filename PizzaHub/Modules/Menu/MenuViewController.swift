@@ -14,18 +14,15 @@ enum MenuSection: Int, CaseIterable {
     case products
 }
 
+protocol IMenuViewController: AnyObject {
+    func updateView(with state: MenuViewState)
+    func setupProperties(with menuModel: MenuModel)
+    func reloadData()
+}
+
 final class MenuViewController: UIViewController {
-        
-    private let provider: MenuProvider
-    private let router: IAppRouter
     
-    private var stories: [Story] = []
-    private var banners: [Product] = []
-    private var categories: [Category] = []
-    private var products: [Product] = []
-        
-    private var isProgrammaticScroll = false
-    private var selectedCategoryId: String?
+    private let presenter: IMenuPresenter
     
     private var state: MenuViewState = .initial {
         didSet {
@@ -33,9 +30,16 @@ final class MenuViewController: UIViewController {
         }
     }
     
-    init(provider: MenuProvider, router: IAppRouter) {
-        self.provider = provider
-        self.router = router
+    private var stories: [Story] = []
+    private var banners: [Product] = []
+    private var categories: [Category] = []
+    private var products: [Product] = []
+    
+    private var isProgrammaticScroll = false
+    private var selectedCategoryId: String?
+    
+    init(presenter: IMenuPresenter) {
+        self.presenter = presenter
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -62,7 +66,6 @@ final class MenuViewController: UIViewController {
         return button
     }()
     
-    //Создали UI-элемент таблицы
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -93,7 +96,8 @@ final class MenuViewController: UIViewController {
     private lazy var errorView: ErrorView = {
         var errorView = ErrorView()
         errorView.onRetryAction = { [weak self] in
-            self?.loadData()
+            guard let self else { return }
+            self.presenter.loadData()
         }
         
         return errorView
@@ -104,55 +108,7 @@ final class MenuViewController: UIViewController {
         setupViews()
         setupConstraints()
                 
-        loadData()
-    }
-}
-
-//MARK: - Business Logic
-extension MenuViewController {
-    private func loadData() {
-        state = .loading
-        
-        Task {
-            do {
-                let menuModel = try await provider.loadData()
-                await MainActor.run {
-                    stories = menuModel.stories
-                    banners = menuModel.banners
-                    categories = menuModel.categories
-                    products = menuModel.products
-                    
-                    state = .loaded
-                    tableView.reloadData()
-                }
-            }
-            catch {
-                await MainActor.run {
-                    state = .error
-                    print(error.localizedDescription)
-                }
-            }
-        }
-    }
-}
-
-// MARK: - UI state
-extension MenuViewController {
-    private func render(_ state: MenuViewState) {
-        switch state {
-        case .initial, .loading:
-            loadingView.startAnimating()
-            errorView.isHidden = true
-            tableView.isHidden = true
-        case .loaded:
-            loadingView.stopAnimating()
-            errorView.isHidden = true
-            tableView.isHidden = false
-        case .error:
-            loadingView.stopAnimating()
-            errorView.isHidden = false
-            tableView.isHidden = true
-        }
+        presenter.viewDidLoad()
     }
 }
 
@@ -200,7 +156,7 @@ extension MenuViewController: UITableViewDataSource {
             cell.selectionStyle = .none
             cell.onStoryTapped = { [weak self] story, storyIndex in
                 guard let self else { return }
-                self.router.showStory(stories: stories, selectedStoryIndex: storyIndex, sourceVC: self)
+                presenter.showStory(stories: stories, selectedStoryIndex: storyIndex)
             }
             cell.update(stories)
             return cell
@@ -209,7 +165,7 @@ extension MenuViewController: UITableViewDataSource {
             cell.selectionStyle = .none
             cell.onBannerTapped = { [weak self] banner in
                 guard let self else { return }
-                self.router.showProductDetails(banner, sourceVC: self)
+                presenter.showProductDetails(banner)
             }
             cell.update(banners)
             return cell
@@ -244,7 +200,7 @@ extension MenuViewController: UITableViewDataSource {
         guard let menuSection = MenuSection(rawValue: indexPath.section), menuSection == .products else { return }
         
         let product = products[indexPath.row]
-        router.showProductDetails(product, sourceVC: self)
+        presenter.showProductDetails(product)
     }
     
 }
@@ -260,10 +216,12 @@ extension MenuViewController {
         print("🔄 Начинаем программный скролл к категории")
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             print("animate START")
-            self?.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            guard let self else { return }
+            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }, completion: { [weak self] _ in
             print("animate END")
-            self?.isProgrammaticScroll = false
+            guard let self else { return }
+            self.isProgrammaticScroll = false
         })
     }
     
@@ -323,6 +281,44 @@ extension MenuViewController {
         }
         errorView.snp.makeConstraints { make in
             make.edges.equalTo(view)
+        }
+    }
+}
+
+// MARK: - public
+extension MenuViewController: IMenuViewController {
+    func updateView(with state: MenuViewState) {
+        render(state)
+    }
+    
+    func setupProperties(with menuModel: MenuModel) {
+        stories = menuModel.stories
+        banners = menuModel.banners
+        categories = menuModel.categories
+        products = menuModel.products
+    }
+    
+    func reloadData() {
+        tableView.reloadData()
+    }
+}
+
+// MARK: - private
+extension MenuViewController {
+    private func render(_ state: MenuViewState) {
+        switch state {
+        case .initial, .loading:
+            loadingView.startAnimating()
+            errorView.isHidden = true
+            tableView.isHidden = true
+        case .loaded:
+            loadingView.stopAnimating()
+            errorView.isHidden = true
+            tableView.isHidden = false
+        case .error:
+            loadingView.stopAnimating()
+            errorView.isHidden = false
+            tableView.isHidden = true
         }
     }
 }

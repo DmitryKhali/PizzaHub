@@ -5,6 +5,7 @@
 //  Created by Dmitry Khalitov on 21.12.2025.
 //
 
+import Foundation
 import UIKit
 
 protocol DIContainer: AnyObject {
@@ -17,7 +18,7 @@ protocol DIContainer: AnyObject {
     var productsArchiver: ICartService { get }
     
     var screenFactory: ScreenFactory { get }
-    var appRouter: IAppRouter { get }
+//    var appRouter: IAppRouter { get }
     
     var menuProvider: MenuProvider { get }
 }
@@ -35,9 +36,9 @@ final class DependencyContainer: DIContainer {
     let addressSuggestionService: IAddressSuggestionService
     let productsArchiver: ICartService
     
-    lazy var appRouter: IAppRouter = {
-        AppRouter(di: self)
-    }()
+//    lazy var appRouter: IAppRouter = {
+//        AppRouter(di: self)
+//    }()
     lazy var screenFactory: ScreenFactory = {
         ScreenFactory(di: self)
     }()
@@ -52,10 +53,6 @@ final class DependencyContainer: DIContainer {
         ingredientsService = IngredientsService(session: session, decoder: decoder)
         addressSuggestionService = AddressSuggestionService(session: session, decoder: decoder)
         productsArchiver = CartService()
-        
-//        appRouter = AppRouter(di: self)
-//        screenFactory = ScreenFactory(di: self)
-//        screenFactory.di = self
     }
     
     var menuProvider: MenuProvider {
@@ -63,27 +60,24 @@ final class DependencyContainer: DIContainer {
     }
 }
 
-final class ScreenFactory { // TODO: закрывать интерфейсом?
-//    weak var di: DIContainer!
-    var di: DIContainer // TODO: если обьекты в любом случае должы жить оба, есть ли смысл делать weak?
+final class ScreenFactory {
+    var di: DIContainer
     
     init(di: DIContainer) {
         self.di = di
     }
-    
-//    func makeMenuScreen() -> MenuViewController {
-//        MenuViewController(
-//            storiesService: di.storiesService,
-//            bannersService: di.bannersService,
-//            categoriesService: di.categoriesService,
-//            productsService: di.productsService,
-//            productsArchiver: di.productsArchiver
-//        )
-//    }
-    
-    // MVC sample
+
     func makeMenuScreen() -> MenuViewController {
-        MenuViewController(provider: di.menuProvider, router: di.appRouter)
+        let router = MenuRouter(di: di)
+        let interactor = MenuInteractor(provider: di.menuProvider)
+        let presenter = MenuPresenter(interactor: interactor, router: router)
+        let view = MenuViewController(presenter: presenter)
+        
+        presenter.view = view
+        interactor.output = presenter
+        router.viewController = view
+        
+        return view
     }
     
     func makeCartScreen() -> CartViewController {

@@ -8,8 +8,8 @@
 import UIKit
 
 protocol IAppRouter {
-    func showProductDetails(_ product: Product, sourceVC: UIViewController)
-    func showStory(stories: [Story], selectedStoryIndex: Int, sourceVC: UIViewController)
+//    func showProductDetails(_ product: Product, sourceVC: UIViewController)
+//    func showStory(stories: [Story], selectedStoryIndex: Int, sourceVC: UIViewController)
 }
 
 final class AppRouter: IAppRouter {
@@ -20,14 +20,14 @@ final class AppRouter: IAppRouter {
         self.di = di
     }
     
-    func showProductDetails(_ product: Product, sourceVC: UIViewController) {
-        let vc = di.screenFactory.makeProductDetailsScreen(product: product)
-        sourceVC.present(vc, animated: true)
-    }
-    
-    func showStory(stories: [Story], selectedStoryIndex: Int, sourceVC: UIViewController) {
-        let vc = di.screenFactory.makeStory()
-        vc.setup(with: stories, selectedStoryIndex: selectedStoryIndex)
-        sourceVC.present(vc, animated: true)
-    }
+//    func showProductDetails(_ product: Product, sourceVC: UIViewController) {
+//        let vc = di.screenFactory.makeProductDetailsScreen(product: product)
+//        sourceVC.present(vc, animated: true)
+//    }
+//    
+//    func showStory(stories: [Story], selectedStoryIndex: Int, sourceVC: UIViewController) {
+//        let vc = di.screenFactory.makeStory()
+//        vc.setup(with: stories, selectedStoryIndex: selectedStoryIndex)
+//        sourceVC.present(vc, animated: true)
+//    }
 }

@@ -39,6 +39,9 @@
 		527C4FBE2EF876AD0081122C /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527C4FBD2EF876AD0081122C /* DependencyContainer.swift */; };
 		527F58592F209F49007730BB /* MenuViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527F58582F209F49007730BB /* MenuViewState.swift */; };
 		527F585B2F20FEFB007730BB /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527F585A2F20FEFB007730BB /* ErrorView.swift */; };
+		52837ABF2F3CE44A0064F8F7 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52837ABE2F3CE44A0064F8F7 /* MenuPresenter.swift */; };
+		52837AC12F3CEA220064F8F7 /* MenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52837AC02F3CEA220064F8F7 /* MenuInteractor.swift */; };
+		52837AC52F3E554B0064F8F7 /* MenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52837AC42F3E554B0064F8F7 /* MenuRouter.swift */; };
 		529F4B532EBE62D50060A377 /* StoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529F4B522EBE62D50060A377 /* StoriesService.swift */; };
 		529F4B572EBE66640060A377 /* StoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529F4B562EBE66640060A377 /* StoryCollectionCell.swift */; };
 		529F4B592EBE67A10060A377 /* BannerCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529F4B582EBE67A10060A377 /* BannerCollectionCell.swift */; };
@@ -96,6 +99,9 @@
 		527C4FBD2EF876AD0081122C /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		527F58582F209F49007730BB /* MenuViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewState.swift; sourceTree = "<group>"; };
 		527F585A2F20FEFB007730BB /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		52837ABE2F3CE44A0064F8F7 /* MenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
+		52837AC02F3CEA220064F8F7 /* MenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuInteractor.swift; sourceTree = "<group>"; };
+		52837AC42F3E554B0064F8F7 /* MenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRouter.swift; sourceTree = "<group>"; };
 		529F4B522EBE62D50060A377 /* StoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesService.swift; sourceTree = "<group>"; };
 		529F4B562EBE66640060A377 /* StoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCollectionCell.swift; sourceTree = "<group>"; };
 		529F4B582EBE67A10060A377 /* BannerCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionCell.swift; sourceTree = "<group>"; };
@@ -265,9 +271,12 @@
 			children = (
 				52AADE082F26187F0081EFC2 /* Stories */,
 				52444A1E2EBB97F000E3AD22 /* Cells */,
-				524449E92EB60FF600E3AD22 /* MenuViewController.swift */,
-				52D2608F2F1CE0BD00E3BE08 /* MenuProvider.swift */,
 				527F58582F209F49007730BB /* MenuViewState.swift */,
+				524449E92EB60FF600E3AD22 /* MenuViewController.swift */,
+				52837ABE2F3CE44A0064F8F7 /* MenuPresenter.swift */,
+				52837AC02F3CEA220064F8F7 /* MenuInteractor.swift */,
+				52D2608F2F1CE0BD00E3BE08 /* MenuProvider.swift */,
+				52837AC42F3E554B0064F8F7 /* MenuRouter.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -434,6 +443,7 @@
 				52ACE41C2F15707E00B28A07 /* AddressSuggestionService.swift in Sources */,
 				527F585B2F20FEFB007730BB /* ErrorView.swift in Sources */,
 				52D2608C2F1A8BFC00E3BE08 /* CartService.swift in Sources */,
+				52837AC52F3E554B0064F8F7 /* MenuRouter.swift in Sources */,
 				52A258D82EDC46C200241E75 /* Ingredient.swift in Sources */,
 				52C8C1ED2EC895D1000B71F0 /* ProductOptionsContainerCell.swift in Sources */,
 				524449F42EB60FF600E3AD22 /* UITableViewExtension.swift in Sources */,
@@ -442,6 +452,7 @@
 				524449F52EB60FF600E3AD22 /* UIViewExtensions.swift in Sources */,
 				529F4B612EBF4E870060A377 /* EmptyView.swift in Sources */,
 				524C46752EC785E80031E1FF /* ProductDetailsViewController.swift in Sources */,
+				52837ABF2F3CE44A0064F8F7 /* MenuPresenter.swift in Sources */,
 				52444A092EB7A76E00E3AD22 /* UIScreen + sizes.swift in Sources */,
 				52A258D62EDC465F00241E75 /* IngredientsService.swift in Sources */,
 				524449F62EB60FF600E3AD22 /* Banner.swift in Sources */,
@@ -455,6 +466,7 @@
 				52444A132EB7AB3900E3AD22 /* Story.swift in Sources */,
 				529F4B5F2EBE69870060A377 /* CategoryCollectionCell.swift in Sources */,
 				52E67FA02F1272A7005023D0 /* FindAddressViewController.swift in Sources */,
+				52837AC12F3CEA220064F8F7 /* MenuInteractor.swift in Sources */,
 				529F4B532EBE62D50060A377 /* StoriesService.swift in Sources */,
 				529F4B572EBE66640060A377 /* StoryCollectionCell.swift in Sources */,
 				52444A0F2EB7A95100E3AD22 /* StoriesContainerCell.swift in Sources */,
