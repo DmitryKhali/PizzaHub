@@ -83,7 +83,8 @@ final class ScreenFactory { // TODO: закрывать интерфейсом?
     
     // MVC sample
     func makeMenuScreen() -> MenuViewController {
-        MenuViewController(provider: di.menuProvider, router: di.appRouter)
+        let viewModel = MenuViewModel(provider: di.menuProvider)
+        return MenuViewController(viewModel: viewModel, router: di.appRouter)
     }
     
     func makeCartScreen() -> CartViewController {

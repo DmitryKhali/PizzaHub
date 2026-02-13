@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 enum MenuSection: Int, CaseIterable {
     case stories
@@ -16,25 +17,15 @@ enum MenuSection: Int, CaseIterable {
 
 final class MenuViewController: UIViewController {
         
-    private let provider: MenuProvider
+    private let viewModel: MenuViewModel
     private let router: IAppRouter
-    
-    private var stories: [Story] = []
-    private var banners: [Product] = []
-    private var categories: [Category] = []
-    private var products: [Product] = []
-        
+    private var cancellables = Set<AnyCancellable>()
+            
     private var isProgrammaticScroll = false
     private var selectedCategoryId: String?
     
-    private var state: MenuViewState = .initial {
-        didSet {
-            render(state)
-        }
-    }
-    
-    init(provider: MenuProvider, router: IAppRouter) {
-        self.provider = provider
+    init(viewModel: MenuViewModel, router: IAppRouter) {
+        self.viewModel = viewModel
         self.router = router
         
         super.init(nibName: nil, bundle: nil)
@@ -93,7 +84,8 @@ final class MenuViewController: UIViewController {
     private lazy var errorView: ErrorView = {
         var errorView = ErrorView()
         errorView.onRetryAction = { [weak self] in
-            self?.loadData()
+            guard let self else { return }
+            self.viewModel.fetchData()
         }
         
         return errorView
@@ -103,36 +95,9 @@ final class MenuViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
+        setupBindings()
                 
-        loadData()
-    }
-}
-
-//MARK: - Business Logic
-extension MenuViewController {
-    private func loadData() {
-        state = .loading
-        
-        Task {
-            do {
-                let menuModel = try await provider.loadData()
-                await MainActor.run {
-                    stories = menuModel.stories
-                    banners = menuModel.banners
-                    categories = menuModel.categories
-                    products = menuModel.products
-                    
-                    state = .loaded
-                    tableView.reloadData()
-                }
-            }
-            catch {
-                await MainActor.run {
-                    state = .error
-                    print(error.localizedDescription)
-                }
-            }
-        }
+        viewModel.fetchData()
     }
 }
 
@@ -153,6 +118,10 @@ extension MenuViewController {
             errorView.isHidden = false
             tableView.isHidden = true
         }
+    }
+    
+    private func reloadData() {
+        tableView.reloadData()
     }
 }
 
@@ -183,7 +152,7 @@ extension MenuViewController: UITableViewDataSource {
         
         switch menuSection {
         case .products:
-            return products.count
+            return viewModel.products.count
         default:
             return 1
         }
@@ -200,9 +169,9 @@ extension MenuViewController: UITableViewDataSource {
             cell.selectionStyle = .none
             cell.onStoryTapped = { [weak self] story, storyIndex in
                 guard let self else { return }
-                self.router.showStory(stories: stories, selectedStoryIndex: storyIndex, sourceVC: self)
+                self.router.showStory(stories: viewModel.stories, selectedStoryIndex: storyIndex, sourceVC: self)
             }
-            cell.update(stories)
+            cell.update(viewModel.stories)
             return cell
         case .banners:
             let cell = tableView.dequeueReusableCell(withIdentifier: BannersContainerCell.reuseId, for: indexPath) as! BannersContainerCell
@@ -211,11 +180,11 @@ extension MenuViewController: UITableViewDataSource {
                 guard let self else { return }
                 self.router.showProductDetails(banner, sourceVC: self)
             }
-            cell.update(banners)
+            cell.update(viewModel.banners)
             return cell
         case .products:
             let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.reuseId, for: indexPath) as! ProductCell
-            let product = products[indexPath.row]
+            let product = viewModel.products[indexPath.row]
             cell.selectionStyle = .none
             cell.update(product)
             return cell
@@ -233,7 +202,7 @@ extension MenuViewController: UITableViewDataSource {
                 guard let self else { return }
                 self.onCategoryTapped(category: categoryId)
             }
-            header.update(categories, selectedCategoryId: selectedCategoryId)
+            header.update(viewModel.categories, selectedCategoryId: selectedCategoryId)
             return header
         default:
             return EmptyView()
@@ -243,7 +212,7 @@ extension MenuViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let menuSection = MenuSection(rawValue: indexPath.section), menuSection == .products else { return }
         
-        let product = products[indexPath.row]
+        let product = viewModel.products[indexPath.row]
         router.showProductDetails(product, sourceVC: self)
     }
     
@@ -268,7 +237,7 @@ extension MenuViewController {
     }
     
     private func findFirstProductIndexPath(for categoryId: String) -> IndexPath? {
-        guard let firstIndex = products.firstIndex (where: { $0.category == categoryId }) else {
+        guard let firstIndex = viewModel.products.firstIndex (where: { $0.category == categoryId }) else {
             return nil
         }
         return IndexPath(row: firstIndex, section: MenuSection.products.rawValue)
@@ -278,7 +247,7 @@ extension MenuViewController {
         guard let header = tableView.headerView(forSection: MenuSection.products.rawValue) as? CategoriesContainerHeader else {
             return
         }
-        header.update(categories, selectedCategoryId: selectedCategoryId)
+        header.update(viewModel.categories, selectedCategoryId: selectedCategoryId)
     }
     
     private func getActiveCategoryIdFromVisibleCells() -> String? {
@@ -294,11 +263,11 @@ extension MenuViewController {
         let visibleIndexPaths = tableView.indexPathsForRows(in: visibleRect) ?? []
         guard let firstIndexPath = visibleIndexPaths.first else { return nil }
         
-        return products[firstIndexPath.row].category
+        return viewModel.products[firstIndexPath.row].category
     }
 }
 
-//MARK: - Layout
+//MARK: - Setup
 extension MenuViewController {
     //Для установки UI элементов на корневую вью контроллера
     private func setupViews() {
@@ -324,5 +293,16 @@ extension MenuViewController {
         errorView.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }
+    }
+    
+    private func setupBindings() {
+        viewModel.$state
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                guard let self else { return }
+                self.render(state)
+                self.reloadData()
+            }
+            .store(in: &cancellables)
     }
 }
