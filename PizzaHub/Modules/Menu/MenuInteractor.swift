@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol IMenuInteractorInput {
-    func fetchData()
-}
-
 final class MenuInteractor {
     private let provider: MenuProvider
     weak var output: IMenuInteractorOutput?

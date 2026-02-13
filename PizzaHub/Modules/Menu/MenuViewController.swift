@@ -14,12 +14,6 @@ enum MenuSection: Int, CaseIterable {
     case products
 }
 
-protocol IMenuViewInput: AnyObject {
-    func updateView(with state: MenuViewState)
-    func setupProperties(with menuModel: MenuModel)
-    func reloadData()
-}
-
 final class MenuViewController: UIViewController {
     
     private let presenter: IMenuViewOutput

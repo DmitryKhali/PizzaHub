@@ -8,10 +8,7 @@
 import Foundation
 import UIKit
 
-protocol IMenuRouterInput {
-    func showProductDetails(_ product: Product)
-    func showStory(stories: [Story], selectedStoryIndex: Int)
-}
+
 
 final class MenuRouter: IMenuRouterInput {
     

@@ -5,24 +5,7 @@
 //  Created by Dmitry Khalitov on 11.02.2026.
 //
 
-// интерфейс для view
-protocol IMenuViewOutput {
-    func viewDidLoad()
-    func loadData()
-    
-    func showStory(stories: [Story], selectedStoryIndex: Int)
-    func showProductDetails(_ product: Product)
-}
-
-// интерфейс для interactor
-@MainActor // автоматически выполняем методы подписчиков в главной очереди
-protocol IMenuInteractorOutput: AnyObject {
-    func dataFetched(with data: MenuModel)
-    func dataFetchFailed(with error: Error)
-}
-
 final class MenuPresenter {
-    
     private let interactor: IMenuInteractorInput
     private let router: IMenuRouterInput
     weak var view: IMenuViewInput?
@@ -34,7 +17,7 @@ final class MenuPresenter {
     }
 }
 
-// MARK: - public IMenuViewOutput
+// MARK: - public
 extension MenuPresenter: IMenuViewOutput {
     func viewDidLoad() {
         fetchData()

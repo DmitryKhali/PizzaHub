@@ -42,6 +42,7 @@
 		52837ABF2F3CE44A0064F8F7 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52837ABE2F3CE44A0064F8F7 /* MenuPresenter.swift */; };
 		52837AC12F3CEA220064F8F7 /* MenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52837AC02F3CEA220064F8F7 /* MenuInteractor.swift */; };
 		52837AC52F3E554B0064F8F7 /* MenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52837AC42F3E554B0064F8F7 /* MenuRouter.swift */; };
+		52837AC72F3F35860064F8F7 /* MenuContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52837AC62F3F35860064F8F7 /* MenuContracts.swift */; };
 		529F4B532EBE62D50060A377 /* StoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529F4B522EBE62D50060A377 /* StoriesService.swift */; };
 		529F4B572EBE66640060A377 /* StoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529F4B562EBE66640060A377 /* StoryCollectionCell.swift */; };
 		529F4B592EBE67A10060A377 /* BannerCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529F4B582EBE67A10060A377 /* BannerCollectionCell.swift */; };
@@ -102,6 +103,7 @@
 		52837ABE2F3CE44A0064F8F7 /* MenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
 		52837AC02F3CEA220064F8F7 /* MenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuInteractor.swift; sourceTree = "<group>"; };
 		52837AC42F3E554B0064F8F7 /* MenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRouter.swift; sourceTree = "<group>"; };
+		52837AC62F3F35860064F8F7 /* MenuContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuContracts.swift; sourceTree = "<group>"; };
 		529F4B522EBE62D50060A377 /* StoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesService.swift; sourceTree = "<group>"; };
 		529F4B562EBE66640060A377 /* StoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCollectionCell.swift; sourceTree = "<group>"; };
 		529F4B582EBE67A10060A377 /* BannerCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionCell.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 			children = (
 				52AADE082F26187F0081EFC2 /* Stories */,
 				52444A1E2EBB97F000E3AD22 /* Cells */,
+				52837AC62F3F35860064F8F7 /* MenuContracts.swift */,
 				527F58582F209F49007730BB /* MenuViewState.swift */,
 				524449E92EB60FF600E3AD22 /* MenuViewController.swift */,
 				52837ABE2F3CE44A0064F8F7 /* MenuPresenter.swift */,
@@ -481,6 +484,7 @@
 				524449FA2EB60FF600E3AD22 /* BannersContainerCell.swift in Sources */,
 				52444A032EB792F800E3AD22 /* Category.swift in Sources */,
 				522C4AB52EF2725A0092CAE0 /* StepperButton.swift in Sources */,
+				52837AC72F3F35860064F8F7 /* MenuContracts.swift in Sources */,
 				52C8C1EF2EC8DD2E000B71F0 /* AdditionalIngredientsContainerCell.swift in Sources */,
 				521791F52F33C19B00385CDA /* StoryFullscreenCell.swift in Sources */,
 				524449FB2EB60FF600E3AD22 /* CategoriesContainerHeader.swift in Sources */,
