@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-protocol IMenuRouter {
+protocol IMenuRouterInput {
     func showProductDetails(_ product: Product)
     func showStory(stories: [Story], selectedStoryIndex: Int)
 }
 
-final class MenuRouter: IMenuRouter {
+final class MenuRouter: IMenuRouterInput {
     
     private let di: DIContainer
     weak var viewController: MenuViewController?

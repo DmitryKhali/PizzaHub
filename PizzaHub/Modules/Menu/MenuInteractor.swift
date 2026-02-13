@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol IMenuInteractor {
+protocol IMenuInteractorInput {
     func fetchData()
 }
 
@@ -22,7 +22,7 @@ final class MenuInteractor {
 
 
 // MARK: - public
-extension MenuInteractor: IMenuInteractor {
+extension MenuInteractor: IMenuInteractorInput {
     func fetchData() {
         Task {
             do {

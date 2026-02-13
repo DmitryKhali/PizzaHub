@@ -14,7 +14,7 @@ enum MenuSection: Int, CaseIterable {
     case products
 }
 
-protocol IMenuViewController: AnyObject {
+protocol IMenuViewInput: AnyObject {
     func updateView(with state: MenuViewState)
     func setupProperties(with menuModel: MenuModel)
     func reloadData()
@@ -22,7 +22,7 @@ protocol IMenuViewController: AnyObject {
 
 final class MenuViewController: UIViewController {
     
-    private let presenter: IMenuPresenter
+    private let presenter: IMenuViewOutput
     
     private var state: MenuViewState = .initial {
         didSet {
@@ -38,7 +38,7 @@ final class MenuViewController: UIViewController {
     private var isProgrammaticScroll = false
     private var selectedCategoryId: String?
     
-    init(presenter: IMenuPresenter) {
+    init(presenter: IMenuViewOutput) {
         self.presenter = presenter
         
         super.init(nibName: nil, bundle: nil)
@@ -286,7 +286,7 @@ extension MenuViewController {
 }
 
 // MARK: - public
-extension MenuViewController: IMenuViewController {
+extension MenuViewController: IMenuViewInput {
     func updateView(with state: MenuViewState) {
         render(state)
     }

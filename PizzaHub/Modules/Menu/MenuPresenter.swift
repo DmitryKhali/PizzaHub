@@ -6,7 +6,7 @@
 //
 
 // интерфейс для view
-protocol IMenuPresenter {
+protocol IMenuViewOutput {
     func viewDidLoad()
     func loadData()
     
@@ -15,7 +15,7 @@ protocol IMenuPresenter {
 }
 
 // интерфейс для interactor
-@MainActor // автоматически выполняем методы подписчиков
+@MainActor // автоматически выполняем методы подписчиков в главной очереди
 protocol IMenuInteractorOutput: AnyObject {
     func dataFetched(with data: MenuModel)
     func dataFetchFailed(with error: Error)
@@ -23,19 +23,19 @@ protocol IMenuInteractorOutput: AnyObject {
 
 final class MenuPresenter {
     
-    private let interactor: IMenuInteractor
-    private let router: IMenuRouter
-    weak var view: IMenuViewController?
+    private let interactor: IMenuInteractorInput
+    private let router: IMenuRouterInput
+    weak var view: IMenuViewInput?
     
-    init(interactor: IMenuInteractor, router: IMenuRouter) {
+    init(interactor: IMenuInteractorInput, router: IMenuRouterInput) {
         self.interactor = interactor
         self.router = router
         
     }
 }
 
-// MARK: - public IMenuPresenter
-extension MenuPresenter: IMenuPresenter {
+// MARK: - public IMenuViewOutput
+extension MenuPresenter: IMenuViewOutput {
     func viewDidLoad() {
         fetchData()
     }
