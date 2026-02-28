@@ -7,192 +7,256 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "12E650DB-4B35-4B56-BD1C-54953004D34C"
+            uuid = "F253E0B3-B1C5-4707-B11D-1E07B306A69B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Modules/Menu/MenuViewController.swift"
+            filePath = "PizzaHub/Modules/Cart/CartViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "285"
-            endingLineNumber = "285"
-            landmarkName = "getActiveCategoryIdFromVisibleCells()"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "51DB2530-EBD4-4184-9D6F-70DE80873F89"
+            uuid = "CD51B19F-8B90-43DF-A5E7-BFC673A2C67E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Modules/Menu/MenuViewController.swift"
+            filePath = "PizzaHub/Modules/Cart/CartViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "287"
-            endingLineNumber = "287"
-            landmarkName = "getActiveCategoryIdFromVisibleCells()"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "10BB9614-D80F-458F-8C13-D4E32BDAFB39"
+            uuid = "E44800EF-2015-464A-B694-BFA6E0D699F3"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Modules/Menu/MenuViewController.swift"
+            filePath = "PizzaHub/Modules/Cart/CartViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "294"
-            endingLineNumber = "294"
-            landmarkName = "getActiveCategoryIdFromVisibleCells()"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F78F0010-9676-45EF-971C-CE1C097425BF"
+            uuid = "2396CBB3-98A1-4A7B-AB9F-EDB3BD3BC5DD"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Modules/Menu/MenuViewController.swift"
+            filePath = "PizzaHub/Modules/Cart/CartViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
-            landmarkName = "getActiveCategoryIdFromVisibleCells()"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6E2C431E-0CFA-4039-AE47-5C2405BD4BD6"
+            uuid = "269AD99B-517A-4802-8C6B-E2D56CCA28E8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Modules/Menu/Stories/StoriesFullscreenViewController.swift"
+            filePath = "PizzaHub/Modules/ProductDetails/ProductDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
-            landmarkName = "handleTap(_:)"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
+            landmarkName = "addToCartTapped()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "926ABE24-FB06-4EB4-B95D-4E51AD543E35"
+            uuid = "FC4E3FF3-669C-4F96-8EB6-59906DCF153B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Modules/Menu/Stories/StoriesFullscreenViewController.swift"
+            filePath = "PizzaHub/Modules/ProductDetails/ProductDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "handleTap(_:)"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
+            landmarkName = "addToCartTapped()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FB08538B-1E9E-4456-87C4-87CB6CCBA89D"
+            uuid = "5EDCB6C1-2A97-4831-919E-AED8F499B339"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Modules/Menu/Stories/StoriesFullscreenViewController.swift"
+            filePath = "PizzaHub/Services/CartService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
-            landmarkName = "handleTap(_:)"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "mergeDuplicates(in:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "31CD0454-CD6D-4B8C-80F3-E90CA30C9C5F"
+            uuid = "41BA2B08-4C2F-47A2-ADD8-74E91A1DB2F1"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Modules/Menu/Stories/StoriesFullscreenViewController.swift"
+            filePath = "PizzaHub/Services/CartService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "handleTap(_:)"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "mergeDuplicates(in:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9ABE5E6E-6F73-4147-8498-F0A37582CF88"
+            uuid = "67E4ADE2-F0A5-40F7-8034-10CA9D3D087F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Modules/Menu/Stories/StoryFullscreenCell.swift"
+            filePath = "PizzaHub/Modules/Cart/CartViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
-            landmarkName = "handleLongPress(_:)"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
+            landmarkName = "updateProductInCart(with:updatedProduct:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "ACE9C03E-2C30-4DB3-8317-67E7AD730B07"
+            uuid = "4EEC6697-008C-4113-BF5B-DED6685B5D3A"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Modules/Menu/Stories/StoryFullscreenCell.swift"
+            filePath = "PizzaHub/Services/CartService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
-            landmarkName = "resumeProgress(duration:completion:)"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "mergeDuplicates(in:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B6D5EEAE-6718-45FE-BB11-94F86F31F3B1"
+            uuid = "33E028F9-E05C-45FD-AD53-F40FBED820A0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Modules/Menu/Stories/StoriesFullscreenViewController.swift"
+            filePath = "PizzaHub/Services/CartService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
-            landmarkName = "scrollViewDidEndDecelerating(_:)"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "mergeDuplicates(in:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2F1AC0D3-0DD7-495E-A390-982DDB3E7964"
+            uuid = "4D8AEAD4-67E4-48AA-BF86-CFAD184E85F4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PizzaHub/Modules/Menu/Stories/StoriesFullscreenViewController.swift"
+            filePath = "PizzaHub/Services/CartService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
-            landmarkName = "scrollViewDidEndDecelerating(_:)"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "addToCart(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4691F82B-BC1C-46C8-8F03-801560DE8DAE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PizzaHub/Services/CartService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "addToCart(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "274C2654-1A48-42B4-9EF0-695A47262558"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PizzaHub/Services/CartService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "addToCart(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C314192F-F2E7-489B-B257-517292638311"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PizzaHub/Services/CartService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "save(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "249AABA8-D427-47FB-81B1-0056A18E346D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PizzaHub/Services/CartService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "save(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

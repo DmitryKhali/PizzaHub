@@ -16,6 +16,8 @@ final class StepperButton: UIControl {
         }
     }
     
+    var onQuantityChange: ((Int) -> Void)?
+    
     var minimumValue = 1
     var maximumValue = 99
     var stepValue = 1
@@ -97,8 +99,9 @@ extension StepperButton {
         let newValue = value - stepValue
         
         if newValue >= minimumValue {
-            value = newValue
-            sendActions(for: .valueChanged)
+            onQuantityChange?(newValue)
+//            value = newValue
+//            sendActions(for: .valueChanged)
         }
     }
     
@@ -106,8 +109,9 @@ extension StepperButton {
         let newValue = value + stepValue
         
         if newValue <= maximumValue {
-            value = newValue
-            sendActions(for: .valueChanged)
+            onQuantityChange?(newValue)
+//            value = newValue
+//            sendActions(for: .valueChanged)
         }
     }
 }

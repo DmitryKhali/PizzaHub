@@ -104,7 +104,7 @@ extension BannerCollectionCell {
     func configure(banner: Product) {
         imageView.image = UIImage(named: banner.image)
         nameLabel.text = banner.name
-        priceLabel.text = "от \(banner.price) ₽"
+        priceLabel.text = "от \(banner.minimumPrice) ₽"
     }
     
 }

@@ -59,6 +59,7 @@ final class MenuViewController: UIViewController {
         config.contentInsets = .init(top: 12, leading: 20, bottom: 12, trailing: 20)
 
         let button = UIButton(configuration: config)
+        button.addTarget(self, action: #selector(onDeliveryAddressTapped), for: .touchUpInside)
         return button
     }()
     
@@ -209,7 +210,7 @@ extension MenuViewController: UITableViewDataSource {
             cell.selectionStyle = .none
             cell.onBannerTapped = { [weak self] banner in
                 guard let self else { return }
-                self.router.showProductDetails(banner, sourceVC: self)
+                self.router.showDetailProductScreen(banner, sourceVC: self, mode: .add, onProductUpdated: nil)
             }
             cell.update(banners)
             return cell
@@ -244,7 +245,7 @@ extension MenuViewController: UITableViewDataSource {
         guard let menuSection = MenuSection(rawValue: indexPath.section), menuSection == .products else { return }
         
         let product = products[indexPath.row]
-        router.showProductDetails(product, sourceVC: self)
+        router.showDetailProductScreen(product, sourceVC: self, mode: .add, onProductUpdated: nil)
     }
     
 }
@@ -324,5 +325,11 @@ extension MenuViewController {
         errorView.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }
+    }
+}
+
+extension MenuViewController {
+    @objc private func onDeliveryAddressTapped() {
+        router.showDeliveryAddress(sourceVC: self)
     }
 }

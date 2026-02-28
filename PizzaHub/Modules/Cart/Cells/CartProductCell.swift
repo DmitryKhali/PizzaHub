@@ -12,6 +12,10 @@ final class CartProductCell: UITableViewCell {
         
     static let reuseId = "CartProductCell"
     
+    var product: Product? = nil
+    var onQuantityChanged: ((Product?, Int) -> Void)?
+    var onChangeTapped: (() -> Void)?
+    
     private let containerView: UIView = {
         var view = UIView()
         return view
@@ -39,7 +43,7 @@ final class CartProductCell: UITableViewCell {
         return stackView
     }()
     
-    private let productName: UILabel = {
+    private let productNameLabel: UILabel = {
         var label = UILabel()
         label.text = "Деревенская с Бужениной"
         label.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
@@ -47,20 +51,30 @@ final class CartProductCell: UITableViewCell {
         return label
     }()
     
-    private let productIngredients: UILabel = {
+    private let productDetailsLabel: UILabel = {
         var label = UILabel()
-        label.text = "Тесто, Сыр, Буженина"
+        label.text = "Средняя 30 см, традиционное тесто"
         label.font = UIFont.systemFont(ofSize: 14)
         label.numberOfLines = 0
         
         return label
     }()
     
-    private let productOptions: UILabel = {
+    private let addedIngredientsLabel: UILabel = {
         var label = UILabel()
-        label.text = "Средняя 30 см, традиционное тесто"
+        label.text = "+ Тесто, Сыр, Буженина"
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .lightGray
+        label.textColor = .gray
+        label.numberOfLines = 0
+        
+        return label
+    }()
+    
+    private let excludedIngredientsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "- Огурчики"
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .gray
         label.numberOfLines = 0
         
         return label
@@ -85,15 +99,20 @@ final class CartProductCell: UITableViewCell {
         button.setTitleColor(.orange, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.addTarget(nil, action: #selector(changeButtonAction), for: .touchUpInside)
         return button
     }()
     
-    private let changeCountButton: StepperButton = {
+    private lazy var changeCountButton: StepperButton = {
         var stepper = StepperButton()
         stepper.minimumValue = 1
         stepper.maximumValue = 99
         stepper.stepValue = 1
         stepper.value = 1
+        stepper.onQuantityChange = { [weak self] quantity in
+            guard let self else { return }
+            self.onQuantityChanged?(self.product, quantity)
+        }
         
         return stepper
     }()
@@ -108,7 +127,10 @@ final class CartProductCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+}
+
+// MARK: - Layout
+extension CartProductCell {
     private func setupViews() {
         contentView.addSubview(containerView)
         
@@ -116,12 +138,14 @@ final class CartProductCell: UITableViewCell {
         containerView.addSubview(verticalStackView)
         containerView.addSubview(bottomContainerView)
         
-        verticalStackView.addArrangedSubview(productName)
-        verticalStackView.addArrangedSubview(productIngredients)
-        verticalStackView.addArrangedSubview(productOptions)
+        verticalStackView.addArrangedSubview(productNameLabel)
+        verticalStackView.addArrangedSubview(productDetailsLabel)
+        verticalStackView.addArrangedSubview(addedIngredientsLabel)
+        verticalStackView.addArrangedSubview(excludedIngredientsLabel)
         
-        verticalStackView.setCustomSpacing(12, after: productName)
-        verticalStackView.setCustomSpacing(1, after: productIngredients)
+        verticalStackView.setCustomSpacing(6, after: productNameLabel)
+        verticalStackView.setCustomSpacing(3, after: productDetailsLabel)
+        verticalStackView.setCustomSpacing(3, after: addedIngredientsLabel)
         
         bottomContainerView.addSubview(priceLabel)
         bottomContainerView.addSubview(changeProductButton)
@@ -161,6 +185,46 @@ final class CartProductCell: UITableViewCell {
         changeCountButton.snp.makeConstraints { make in
             make.top.right.bottom.equalTo(bottomContainerView)
         }
+    }
+}
+
+// MARK: - Public
+extension CartProductCell {
+    func setup(with cartItem: Product) {
+        product = cartItem
+        
+        let quantity = cartItem.quantity ?? 1
+        
+        productImage.image = UIImage(named: cartItem.image)
+        productNameLabel.text = cartItem.name
+        productDetailsLabel.text = "\(cartItem.size?.displayValue ?? ""), \(cartItem.dough?.displayValue ?? "")"
+        
+        if let ingredients = cartItem.additionalIngredients, !ingredients.isEmpty {
+            addedIngredientsLabel.isHidden = false
+            let ingredientNames = ingredients.map { $0.name }
+            addedIngredientsLabel.text = "+ \(ingredientNames.joined(separator: ", "))"
+        }
+        else {
+            addedIngredientsLabel.isHidden = true
+        }
+        
+        if let ingredients = cartItem.baseIngredients, !ingredients.filter({ $0.isIncluded == false }).isEmpty {
+            excludedIngredientsLabel.isHidden = false
+            let ingredientNames = ingredients.filter({ $0.isIncluded == false }).map { $0.name }
+            excludedIngredientsLabel.text = "- \(ingredientNames.joined(separator: ", "))"
+        }
+        else {
+            excludedIngredientsLabel.isHidden = true
+        }
+        
+        changeCountButton.value = quantity
+        priceLabel.text = "\(cartItem.totalPrice * quantity) ₽"
+    }
+}
+
+extension CartProductCell {
+    @objc private func changeButtonAction() {
+        onChangeTapped?()
     }
 }
 

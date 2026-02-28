@@ -12,16 +12,21 @@ final class ProductOptionsContainerCell: UITableViewCell {
     
     static let reuseId = "ProductOptionsContainerCell"
     
-    private let productSizeSegmentControl: UISegmentedControl = {
-        var segmentControl = UISegmentedControl(items: ["20 см", "25 см", "30 см", "35 см"])
+    var onSizeChanged: ((_ newSize: PizzaSize) -> Void)?
+    var onDoughChanged: ((_ newDough: PizzaDough) -> Void)?
+    
+    private let pizzaSizeSegmentControl: UISegmentedControl = {
+        var segmentControl = UISegmentedControl(items: PizzaSize.allCases.map { $0.displayValue })
         segmentControl.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        segmentControl.addTarget(self, action: #selector(pizzaSizeChanged), for: .valueChanged)
         
         return segmentControl
     }()
     
-    private let productDoughSegmentControl: UISegmentedControl = {
-        var segmentControl = UISegmentedControl(items: ["Традиционное", "Тонкое"])
+    private let pizzaDoughSegmentControl: UISegmentedControl = {
+        var segmentControl = UISegmentedControl(items: PizzaDough.allCases.map{ $0.displayValue })
         segmentControl.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        segmentControl.addTarget(self, action: #selector(pizzaDoughChanged), for: .valueChanged)
         
         return segmentControl
     }()
@@ -39,23 +44,44 @@ final class ProductOptionsContainerCell: UITableViewCell {
     
 }
 
+// MARK: - Layout
 extension ProductOptionsContainerCell {
-    
     private func setupViews() {
-        contentView.addSubview(productSizeSegmentControl)
-        contentView.addSubview(productDoughSegmentControl)
+        contentView.addSubview(pizzaSizeSegmentControl)
+        contentView.addSubview(pizzaDoughSegmentControl)
     }
     
     private func setupConstraints() {
-        productSizeSegmentControl.snp.makeConstraints { make in
+        pizzaSizeSegmentControl.snp.makeConstraints { make in
             make.top.equalTo(contentView).inset(6)
             make.left.right.equalTo(contentView).inset(14)
         }
-        productDoughSegmentControl.snp.makeConstraints { make in
-            make.top.equalTo(productSizeSegmentControl.snp.bottom).offset(8)
+        pizzaDoughSegmentControl.snp.makeConstraints { make in
+            make.top.equalTo(pizzaSizeSegmentControl.snp.bottom).offset(8)
             make.left.right.equalTo(contentView).inset(14)
             make.bottom.equalTo(contentView)
         }
     }
+}
+
+// MARK: - Public
+extension ProductOptionsContainerCell {
+    func update(with product: Product) {
+        pizzaSizeSegmentControl.selectedSegmentIndex = PizzaSize.allCases.firstIndex(where: { $0 == product.size }) ?? 2
+        pizzaDoughSegmentControl.selectedSegmentIndex = PizzaDough.allCases.firstIndex(where: { $0 == product.dough }) ?? 0
+    }
+}
+
+// MARK: - Private
+extension ProductOptionsContainerCell {
+    @objc private func pizzaSizeChanged() {
+        let currentSize = PizzaSize.allCases[pizzaSizeSegmentControl.selectedSegmentIndex]
+        onSizeChanged?(currentSize)
+        
+    }
     
+    @objc private func pizzaDoughChanged() {
+        let currentDough = PizzaDough.allCases[pizzaDoughSegmentControl.selectedSegmentIndex]
+        onDoughChanged?(currentDough)
+    }
 }

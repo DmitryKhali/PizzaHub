@@ -76,7 +76,7 @@ final class ProductCell: UITableViewCell {
     func update(_ product: Product) {
         nameLabel.text = product.name
         detailLabel.text = product.detail
-        priceButton.setTitle("от \(product.price) ₽", for: .normal)
+        priceButton.setTitle("от \(product.minimumPrice) ₽", for: .normal)
         productImageView.image = UIImage(named: product.image)
     }
 }

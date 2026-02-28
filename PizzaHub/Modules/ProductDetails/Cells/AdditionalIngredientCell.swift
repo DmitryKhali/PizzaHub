@@ -51,6 +51,14 @@ final class AdditionalIngredientCell: UICollectionViewCell {
         return label
     }()
     
+    private let selectionIndicator: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGreen
+        view.layer.cornerRadius = 4
+        view.isHidden = true
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -71,6 +79,7 @@ extension AdditionalIngredientCell {
         containerView.addSubview(ingredientImage)
         containerView.addSubview(ingredientTitle)
         containerView.addSubview(ingredientPrice)
+        containerView.addSubview(selectionIndicator)
     }
     
     private func setupConstraints() {
@@ -91,14 +100,29 @@ extension AdditionalIngredientCell {
             make.top.equalTo(ingredientTitle.snp.bottom)
             make.left.right.bottom.equalTo(containerView).inset(4)
         }
+        
+        selectionIndicator.snp.makeConstraints { make in
+            make.top.right.equalTo(containerView).inset(8)
+            make.size.equalTo(8)
+        }
     }
 }
 
 //MARK: - Public
 extension AdditionalIngredientCell {
-    func update(ingredient: Ingredient) {
+    func update(ingredient: Ingredient, selectedIds: Set<String>) {
         ingredientImage.image = UIImage(named: ingredient.image)
         ingredientTitle.text = ingredient.name
-        ingredientPrice.text = ingredient.price
+        ingredientPrice.text = "\(ingredient.price ?? 0) ₽"
+        
+        let isSelected = selectedIds.contains(ingredient.id)
+        selectionIndicator.isHidden = !isSelected
+        
+        self.containerView.transform = .identity
+        UIView.animate(withDuration: 0.2) {
+            self.containerView.transform = isSelected ?
+            CGAffineTransform(scaleX: 0.96, y: 0.96) :
+                .identity
+        }
     }
 }

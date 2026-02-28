@@ -8,20 +8,25 @@
 import UIKit
 
 protocol IAppRouter {
-    func showProductDetails(_ product: Product, sourceVC: UIViewController)
+    func showDeliveryAddress(sourceVC: UIViewController)
+    func showDetailProductScreen(_ product: Product, sourceVC: UIViewController, mode: ProductDetailsMode, onProductUpdated: ((Product) -> Void)?)
     func showStory(stories: [Story], selectedStoryIndex: Int, sourceVC: UIViewController)
 }
 
 final class AppRouter: IAppRouter {
-    
     private let di: DIContainer
     
     init(di: DIContainer) {
         self.di = di
     }
     
-    func showProductDetails(_ product: Product, sourceVC: UIViewController) {
-        let vc = di.screenFactory.makeProductDetailsScreen(product: product)
+    func showDeliveryAddress(sourceVC: UIViewController) {
+        let vc = di.screenFactory.makeDeliveryAddressScreen()
+        sourceVC.present(vc, animated: true)
+    }
+    
+    func showDetailProductScreen(_ product: Product, sourceVC: UIViewController, mode: ProductDetailsMode = .add, onProductUpdated: ((Product) -> Void)? = nil) {
+        let vc = di.screenFactory.makeDetailProductScreen(product: product, mode: mode, onProductUpdated: onProductUpdated)
         sourceVC.present(vc, animated: true)
     }
     

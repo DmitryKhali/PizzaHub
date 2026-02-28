@@ -14,7 +14,7 @@ protocol DIContainer: AnyObject {
     var productsService: IProductsService { get }
     var ingredientsService: IIngredientsService { get }
     var addressSuggestionService: IAddressSuggestionService { get }
-    var productsArchiver: ICartService { get }
+    var cartService: ICartService { get }
     
     var screenFactory: ScreenFactory { get }
     var appRouter: IAppRouter { get }
@@ -33,7 +33,7 @@ final class DependencyContainer: DIContainer {
     let productsService: IProductsService
     let ingredientsService: IIngredientsService
     let addressSuggestionService: IAddressSuggestionService
-    let productsArchiver: ICartService
+    let cartService: ICartService
     
     lazy var appRouter: IAppRouter = {
         AppRouter(di: self)
@@ -51,7 +51,7 @@ final class DependencyContainer: DIContainer {
         productsService = ProductsService(session: session, decoder: decoder)
         ingredientsService = IngredientsService(session: session, decoder: decoder)
         addressSuggestionService = AddressSuggestionService(session: session, decoder: decoder)
-        productsArchiver = CartService()
+        cartService = CartService()
         
 //        appRouter = AppRouter(di: self)
 //        screenFactory = ScreenFactory(di: self)
@@ -59,7 +59,7 @@ final class DependencyContainer: DIContainer {
     }
     
     var menuProvider: MenuProvider {
-        MenuProvider(storiesService: storiesService, bannersService: bannersService, categoriesService: categoriesService, productsService: productsService, productsArchiver: productsArchiver)
+        MenuProvider(storiesService: storiesService, bannersService: bannersService, categoriesService: categoriesService, productsService: productsService, productsArchiver: cartService)
     }
 }
 
@@ -87,15 +87,32 @@ final class ScreenFactory { // TODO: закрывать интерфейсом?
     }
     
     func makeCartScreen() -> CartViewController {
-        CartViewController()
+        CartViewController(cartService: di.cartService, router: di.appRouter)
+    }
+    
+    func makeDeliveryAddressScreen() -> SavedAddressesViewController {
+        let vc = SavedAddressesViewController()
+        
+        vc.modalPresentationStyle = .overFullScreen
+        vc.isModalInPresentation = false
+        
+        return vc
     }
     
     func makeFindAddressScreen() -> FindAddressViewController {
         FindAddressViewController(addressSuggestionService: di.addressSuggestionService)
     }
     
-    func makeProductDetailsScreen(product: Product) -> ProductDetailsViewController {
-        ProductDetailsViewController(product: product)
+    func makeDetailProductScreen(product: Product, mode: ProductDetailsMode = .add, onProductUpdated: ((Product) -> Void)? = nil) -> ProductDetailsViewController {
+        let vc = ProductDetailsViewController(
+            product: product,
+            ingredientsService: di.ingredientsService,
+            cartService: di.cartService,
+            mode: mode
+        )
+        vc.onProductUpdated = onProductUpdated
+        
+        return vc
     }
     
     func makeStory() -> StoriesFullscreenViewController {

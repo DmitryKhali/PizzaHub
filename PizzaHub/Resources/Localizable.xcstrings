@@ -1,0 +1,63 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "cart_header" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ на сумму %@"
+          }
+        }
+      }
+    },
+    "item_count %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld товара"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld товаров"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld товар"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld товаров"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "ruble_count %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ₽"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.1"
+}

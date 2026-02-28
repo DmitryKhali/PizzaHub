@@ -1,5 +1,5 @@
 //
-//  UIScreen + sizes.swift
+//  UIScreen+sizes.swift
 //  PizzaHub
 //
 //  Created by Dmitry Khalitov on 02.11.2025.

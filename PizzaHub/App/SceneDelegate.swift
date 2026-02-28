@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let di = DependencyContainer()
         
 //        window?.rootViewController = di.screenFactory.makeFindAddressScreen()
-//        window?.rootViewController = di.screenFactory.makeProductDetailsScreen()
+//        window?.rootViewController = di.screenFactory.makeDetailProductScreen()
         window?.rootViewController = MainTabViewController(di: di)
         window?.makeKeyAndVisible()
     }

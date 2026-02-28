@@ -34,6 +34,7 @@ final class ProductImageContainerCell: UITableViewCell {
     }
 }
 
+// MARK: - Layout
 extension ProductImageContainerCell {
     private func setupViews() {
         contentView.addSubview(productImageView)
@@ -41,7 +42,15 @@ extension ProductImageContainerCell {
     
     private func setupConstraints() {
         productImageView.snp.makeConstraints { make in
-            make.edges.equalTo(contentView)
+            make.top.equalTo(contentView).inset(20)
+            make.left.right.bottom.equalTo(contentView)
         }
+    }
+}
+
+// MARK: - Public
+extension ProductImageContainerCell {
+    func update(with product: Product) {
+        productImageView.image = UIImage(named: product.image)
     }
 }

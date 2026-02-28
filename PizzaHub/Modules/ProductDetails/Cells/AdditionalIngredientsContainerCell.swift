@@ -12,7 +12,10 @@ final class AdditionalIngredientsContainerCell: UITableViewCell {
     
     static let reuseId = "AdditionalIngredientsContainerCell"
     
-    private var ingredients: [Ingredient] = []
+    private var availableIngredients: [Ingredient] = []
+    private var selectedIngredientIds: Set<String> = []
+    
+    var onIngredientSelect: ((Int) -> Void)?
     
     private let padding: CGFloat = 5
     private let cellHeight: CGFloat = 180
@@ -56,19 +59,21 @@ final class AdditionalIngredientsContainerCell: UITableViewCell {
 
 // MARK: - Delegate
 extension AdditionalIngredientsContainerCell: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        onIngredientSelect?(indexPath.row)
+    }
 }
 
 // MARK: - DataSource
 extension AdditionalIngredientsContainerCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        ingredients.count
+        availableIngredients.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AdditionalIngredientCell.reuseId, for: indexPath) as! AdditionalIngredientCell
         
-        cell.update(ingredient: ingredients[indexPath.row])
+        cell.update(ingredient: availableIngredients[indexPath.row], selectedIds: selectedIngredientIds)
         return cell
     }
 }
@@ -82,18 +87,19 @@ extension AdditionalIngredientsContainerCell {
     
     private func setupConstarints() {
         collectionView.snp.makeConstraints { make in
-            make.edges.equalTo(contentView.safeAreaLayoutGuide)
+            make.top.equalTo(contentView.safeAreaLayoutGuide).inset(5)
+            make.left.right.bottom.equalTo(contentView.safeAreaLayoutGuide)
         }
     }
 }
 
 // MARK: - Public
 extension AdditionalIngredientsContainerCell {
-    func update(ingredients: [Ingredient]) {
+    func update(ingredients: [Ingredient], selectedIds: Set<String>) {
         guard !ingredients.isEmpty else { return }
         
-        self.ingredients = ingredients
-        print(ingredients)
+        self.availableIngredients = ingredients
+        self.selectedIngredientIds = selectedIds
         
         let rowCount: CGFloat = CGFloat(Int((Double(ingredients.count) / 3.0).rounded(.up)))
         let paddingCount: CGFloat = rowCount + 1
