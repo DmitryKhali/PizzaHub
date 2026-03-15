@@ -8,7 +8,7 @@
 import UIKit
 
 protocol IAppRouter {
-//    func showProductDetails(_ product: Product, sourceVC: UIViewController)
+//    func openProductDetailsScreen(_ product: Product, sourceVC: UIViewController)
 //    func showStory(stories: [Story], selectedStoryIndex: Int, sourceVC: UIViewController)
 }
 

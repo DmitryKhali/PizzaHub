@@ -8,21 +8,28 @@
 import UIKit
 import SnapKit
 
-enum MenuSection: Int, CaseIterable {
-    case stories
-    case banners
-    case products
+// В нейминге не нужно использовать I (достаточно Input / Output)
+// Это то, что Presenter отдает в View - отдает DisplayLogic
+//protocol MenuViewInput: AnyObject {
+//    func showProducts(_ products: [Product])
+//    func showLoading()
+//    func hideLoading()
+//    func showError(_ message: String)
+//}
+protocol MenuViewInput: AnyObject {
+    func render(_ state: MenuViewState) // disptay logic
+}
+
+protocol MenuViewOutput {
+    func viewDidLoad()
+    func didTapRetry()
+    func didSelectStory(stories: [Story], selectedStoryIndex: Int)
+    func didSelectProduct(_ product: Product)
 }
 
 final class MenuViewController: UIViewController {
     
-    private let presenter: IMenuViewOutput
-    
-    private var state: MenuViewState = .initial {
-        didSet {
-            render(state)
-        }
-    }
+    private let output: MenuViewOutput
     
     private var stories: [Story] = []
     private var banners: [Product] = []
@@ -32,8 +39,8 @@ final class MenuViewController: UIViewController {
     private var isProgrammaticScroll = false
     private var selectedCategoryId: String?
     
-    init(presenter: IMenuViewOutput) {
-        self.presenter = presenter
+    init(presenter: MenuViewOutput) {
+        self.output = presenter
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -91,7 +98,7 @@ final class MenuViewController: UIViewController {
         var errorView = ErrorView()
         errorView.onRetryAction = { [weak self] in
             guard let self else { return }
-            self.presenter.loadData()
+            self.output.didTapRetry()
         }
         
         return errorView
@@ -102,7 +109,7 @@ final class MenuViewController: UIViewController {
         setupViews()
         setupConstraints()
                 
-        presenter.viewDidLoad()
+        output.viewDidLoad()
     }
 }
 
@@ -119,6 +126,12 @@ extension MenuViewController: UITableViewDelegate {
         updateHeaderForSelectedCategory()
         print("scrollViewDidScroll end")
     }
+}
+
+enum MenuSection: Int, CaseIterable {
+    case stories
+    case banners
+    case products
 }
 
 extension MenuViewController: UITableViewDataSource {
@@ -150,7 +163,7 @@ extension MenuViewController: UITableViewDataSource {
             cell.selectionStyle = .none
             cell.onStoryTapped = { [weak self] story, storyIndex in
                 guard let self else { return }
-                presenter.showStory(stories: stories, selectedStoryIndex: storyIndex)
+                output.didSelectStory(stories: stories, selectedStoryIndex: storyIndex)
             }
             cell.update(stories)
             return cell
@@ -159,7 +172,7 @@ extension MenuViewController: UITableViewDataSource {
             cell.selectionStyle = .none
             cell.onBannerTapped = { [weak self] banner in
                 guard let self else { return }
-                presenter.showProductDetails(banner)
+                output.didSelectProduct(banner)
             }
             cell.update(banners)
             return cell
@@ -194,7 +207,7 @@ extension MenuViewController: UITableViewDataSource {
         guard let menuSection = MenuSection(rawValue: indexPath.section), menuSection == .products else { return }
         
         let product = products[indexPath.row]
-        presenter.showProductDetails(product)
+        output.didSelectProduct(product)
     }
     
 }
@@ -280,32 +293,15 @@ extension MenuViewController {
 }
 
 // MARK: - public
-extension MenuViewController: IMenuViewInput {
-    func updateView(with state: MenuViewState) {
-        render(state)
-    }
-    
-    func setupProperties(with menuModel: MenuModel) {
-        stories = menuModel.stories
-        banners = menuModel.banners
-        categories = menuModel.categories
-        products = menuModel.products
-    }
-    
-    func reloadData() {
-        tableView.reloadData()
-    }
-}
-
-// MARK: - private
-extension MenuViewController {
-    private func render(_ state: MenuViewState) {
+extension MenuViewController: MenuViewInput {
+    func render(_ state: MenuViewState) {
         switch state {
         case .initial, .loading:
             loadingView.startAnimating()
             errorView.isHidden = true
             tableView.isHidden = true
-        case .loaded:
+        case .loaded(let model):
+            setupProperties(with: model)
             loadingView.stopAnimating()
             errorView.isHidden = true
             tableView.isHidden = false
@@ -314,5 +310,17 @@ extension MenuViewController {
             errorView.isHidden = false
             tableView.isHidden = true
         }
+    }
+}
+
+// MARK: - private
+extension MenuViewController {
+    private func setupProperties(with menuModel: MenuModel) {
+        stories = menuModel.stories
+        banners = menuModel.banners
+        categories = menuModel.categories
+        products = menuModel.products
+        
+        tableView.reloadData()
     }
 }

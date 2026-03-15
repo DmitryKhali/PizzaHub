@@ -7,30 +7,39 @@
 
 import Foundation
 
+protocol MenuInteractorInput {
+    func fetchData()
+}
+
+@MainActor
+protocol MenuInteractorOutput: AnyObject {
+    func didFetchData(with data: MenuModel)
+    func didFailedFetchData(with error: Error)
+}
+
 final class MenuInteractor {
     private let provider: MenuProvider
-    weak var output: IMenuInteractorOutput?
+    weak var output: MenuInteractorOutput?
     
     init(provider: MenuProvider) {
         self.provider = provider
     }
 }
 
-
 // MARK: - public
-extension MenuInteractor: IMenuInteractorInput {
+extension MenuInteractor: MenuInteractorInput {
     func fetchData() {
         Task {
             do {
                 let menuModel = try await provider.loadData()
 //                await MainActor.run {
-                    output?.dataFetched(with: menuModel)
+                    output?.didFetchData(with: menuModel)
 //                }
                 
             }
             catch {
 //                await MainActor.run {
-                    output?.dataFetchFailed(with: error)
+                    output?.didFailedFetchData(with: error)
 //                }
             }
         }

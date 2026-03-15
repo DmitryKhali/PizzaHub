@@ -6,11 +6,11 @@
 //
 
 final class MenuPresenter {
-    private let interactor: IMenuInteractorInput
-    private let router: IMenuRouterInput
-    weak var view: IMenuViewInput?
+    private let interactor: MenuInteractorInput
+    private let router: MenuRouterInput
+    weak var view: MenuViewInput?
     
-    init(interactor: IMenuInteractorInput, router: IMenuRouterInput) {
+    init(interactor: MenuInteractorInput, router: MenuRouterInput) {
         self.interactor = interactor
         self.router = router
         
@@ -18,41 +18,38 @@ final class MenuPresenter {
 }
 
 // MARK: - public
-extension MenuPresenter: IMenuViewOutput {
+extension MenuPresenter: MenuViewOutput {
     func viewDidLoad() {
         fetchData()
     }
     
-    func loadData() {
+    func didTapRetry() {
         fetchData()
     }
     
-    func showStory(stories: [Story], selectedStoryIndex: Int) {
-        router.showStory(stories: stories, selectedStoryIndex: selectedStoryIndex)
+    func didSelectStory(stories: [Story], selectedStoryIndex: Int) {
+        router.openStoryScreen(stories: stories, selectedStoryIndex: selectedStoryIndex)
     }
     
-    func showProductDetails(_ product: Product) {
-        router.showProductDetails(product)
+    func didSelectProduct(_ product: Product) {
+        router.openProductDetailsScreen(product)
     }
 }
 
-extension MenuPresenter: IMenuInteractorOutput {
-    func dataFetched(with data: MenuModel) {
-        view?.setupProperties(with: data)
-        view?.updateView(with: .loaded)
-        view?.reloadData()
+extension MenuPresenter: MenuInteractorOutput {
+    func didFetchData(with data: MenuModel) {
+        view?.render(.loaded(data))
     }
     
-    func dataFetchFailed(with error: any Error) {
-        view?.updateView(with: .error)
-        view?.reloadData()
+    func didFailedFetchData(with error: any Error) {
+        view?.render(.error)
     }
 }
 
 // MARK: - private
 extension MenuPresenter {
     private func fetchData() {
-        view?.updateView(with: .loading)
+        view?.render(.loading)
         interactor.fetchData()
     }
 }

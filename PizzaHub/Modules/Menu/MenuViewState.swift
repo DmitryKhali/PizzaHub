@@ -10,6 +10,6 @@ import Foundation
 enum MenuViewState {
     case initial
     case loading
-    case loaded
+    case loaded(MenuModel)
     case error
 }

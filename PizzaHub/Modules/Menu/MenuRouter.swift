@@ -8,9 +8,12 @@
 import Foundation
 import UIKit
 
+protocol MenuRouterInput {
+    func openProductDetailsScreen(_ product: Product)
+    func openStoryScreen(stories: [Story], selectedStoryIndex: Int)
+}
 
-
-final class MenuRouter: IMenuRouterInput {
+final class MenuRouter: MenuRouterInput {
     
     private let di: DIContainer
     weak var viewController: MenuViewController?
@@ -19,12 +22,12 @@ final class MenuRouter: IMenuRouterInput {
         self.di = di
     }
     
-    func showProductDetails(_ product: Product) {
+    func openProductDetailsScreen(_ product: Product) {
         let vc = di.screenFactory.makeProductDetailsScreen(product: product)
         viewController?.present(vc, animated: true)
     }
     
-    func showStory(stories: [Story], selectedStoryIndex: Int) {
+    func openStoryScreen(stories: [Story], selectedStoryIndex: Int) {
         let vc = di.screenFactory.makeStory()
         vc.setup(with: stories, selectedStoryIndex: selectedStoryIndex)
         viewController?.present(vc, animated: true)
